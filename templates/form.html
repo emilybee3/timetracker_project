@@ -1,1 +1,59 @@
 <!-- this is the form to submit time spent information  -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Main Time Tracker Form
+        </title>
+    </head>
+
+<body>
+
+<form>
+
+<!-- this input will be the current date  -->
+    <input: current date> 
+
+<!-- this select is a dropdown of daytime hours  -->
+For the hour of:
+    <select name="hourint">
+        <option value="6am - 8am" id="6am">6 am - 8 am</option>
+        <option value="8am - 9am" id="8am">8 am -9 am</option>
+        <option value="6am - 8am" id="9am">9 am - 10 am</option>
+        <option value="6am - 8am" id="10am">10 am - 11 am</option>
+        <option value="6am - 8am" id="11am">11 am - 12 pm</option>
+        <option value="6am - 8am" id="12pm">12 pm - 1 pm</option>
+        <option value="6am - 8am" id="1pm">1 pm - 2 pm</option>
+        <option value="6am - 8am" id="2pm">2 pm - 3 pm</option>
+        <option value="6am - 8am" id="3pm">3 pm - 4 pm</option>
+        <option value="6am - 8am" id="4pm">4 pm - 5 pm</option>
+        <option value="6am - 8am" id="5pm">5 pm - 6 pm</option>
+        <option value="6am - 8am" id="6pm">6 pm - 7 pm</option>
+        <option value="6am - 8am" id="7pm">7 pm - 8 pm</option>
+        <option value="6am - 8am" id="8pm">8 pm - 9 pm</option>
+        <option value="6am - 8am" id="9pm">9 pm - 11 pm</option>
+    </select>
+    <br><br>
+
+<!-- this is where the user will input what they were doing -->
+I was:<br>
+    <textarea rows="4" cols="50" class="text" id="text">
+    </textarea>
+    <br><br>
+
+<!-- this is where the user indicates how they felt -->
+I felt: 
+    <input type="radio" name="color" value="red">Red (terrible)
+    <input type="radio" name="color" value="yellow">Yellow (neutral)
+    <input type="radio" name="color" value="green">Green (great!)
+    <br><br>
+
+<!-- this is the submit button -->
+<input type="submit">
+
+</form>
+
+
+</body>
+</html>
