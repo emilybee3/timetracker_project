@@ -1,0 +1,35 @@
+<!-- this page is the main calendar, search, and time tracker button  -->
+<link rel='stylesheet' href='fullcalendar/fullcalendar.css' />
+<script src='lib/jquery.min.js'></script>
+<script src='lib/moment.min.js'></script>
+<script src='fullcalendar/fullcalendar.js'></script>
+
+
+
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <script> 
+            $(document).ready(function() {
+
+                // page is now ready, initialize the calendar...
+
+            $('#calendar').fullCalendar({$('#calendar').fullCalendar({
+    dayClick: function() {
+        alert('a day has been clicked!');
+    }
+});
+            // put your options and callbacks here
+            })
+
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id='calendar'>calendar</div>
+
+
+    </body>
+</html>
