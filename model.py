@@ -34,9 +34,13 @@ class Response(db.Model):
     response_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     time_interval = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.DateTime)
+    date = db.Column(db.String(400))
     text = db.Column(db.String(400))
-    color = db.Column(db.String(10))
+    color = db.Column(db.String(10), nullable=False)
+
+# Define relationship to user
+    user = db.relationship("User",
+                           backref=db.backref("responses", order_by=response_id))
 
     def __repr__(self):
         """Provide helpful representation when printed."""
