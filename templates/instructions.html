@@ -1,1 +1,25 @@
 <!-- this page has instructions on how to use the app -->
+
+<!-- this is the form to submit time spent information  -->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Main Time Tracker Form
+        </title>
+    </head>
+
+<body>
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+<h1>This is the instructions</h1>
+<form action="/response" method="GET">
+    <input type="submit" value="Go to my form!">
+
+</form>
+
+
+</body>
+</html>

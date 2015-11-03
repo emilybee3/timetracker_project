@@ -1,1 +1,44 @@
 <!-- this page is the main login/ splash page -->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Login
+        </title>
+
+    </head>
+
+<body>
+    {% for flash in get_flashed_messages() %}
+        {{ flash }}
+    {% endfor %}
+<h1>Login</h1>
+    <form action="/login" method="POST">
+
+        <div>
+            <label>Email:
+                <input type="email" name="email" required>
+            </label>
+        </div>
+        <br><br>
+        <div>
+            <label>Password:
+                <input type="password" name="password" required>
+            </label>
+        </div>
+        <br><br>
+
+        <div>
+            <input type="submit" value="Log In">
+        </div>
+
+    </form>
+<h2>Or Sign Up!</h2>
+    <form action="/signup" method="GET">
+        <input type="submit" value="Sign Up">
+    </form>
+
+</body>
+</html>
