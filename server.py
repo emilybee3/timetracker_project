@@ -3,12 +3,15 @@
 
 from jinja2 import StrictUndefined
 
-from flask import Flask, render_template, request, flash, redirect, session
+from flask import Flask, render_template, request, flash, redirect, session, jsonify
 # from flask_debugtoolbar import DebugToolbarExtension
 
 from model import connect_to_db, db, User, Response
 
 from datetime import datetime, date
+
+import json
+
 
 
 
@@ -118,12 +121,13 @@ def show_instructions():
 def mainpage():
     """Main page"""
     return render_template("mainpage.html")
-# 
-# @app.route("/mainpage")
-# def populate_mainpage():
-
-    # name = User.query.filter_by(user_id=1).first()
-    # return render_template("mainpage.html", name=name)
+#
+@app.route("/sendjson")
+def send_json():
+    f = open("static/data4.json")
+    data = json.loads(f.read())
+    return jsonify(data)
+    
 
 ################################################################################
 #############################RESPONSE FORM######################################
@@ -174,7 +178,7 @@ if __name__ == "__main__":
     # that we invoke the DebugToolbarExtension
 
     # Do not debug for demo
-    app.debug = False
+    app.debug = True
 
     connect_to_db(app)
 
