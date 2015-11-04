@@ -60,6 +60,7 @@
               .attr("rx", 1)
               .attr("ry", 1)
               .attr("class", "hour bordered")
+              // .attr("id", "card")
               .attr("width", gridSize)
               .attr("height", gridSize/2)
               .style("fill", function(d) {return d.value});
@@ -77,15 +78,18 @@
 
            //creates group element for all cards
 
-var text = svg.selectAll(".hour") //adds time lables
-          .data(data)
+var text = svg.selectAll(".card") //adds time lables
+          .data(data.data)
           .enter().append("text")
             .text(function(d) { return d.words; })
-            .attr("x", function(d, i) { return i * gridSize; })
-            .attr("y", 0)
-            .style("text-anchor", "middle")
-            .attr("transform", "translate(" + gridSize / 2 + ", -6)")
-            .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
+            .attr("x", function(d) { return (d.hour - 1) * gridSize; })
+            .attr("y", function(d) { return (d.day - 1) * gridSize; })
+            // .attr("rx", 1)
+            // .attr("ry", 1)
+            // .style("text-anchor", "middle")
+            // .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+            // .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
+            console.log("labels function")
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
        });
