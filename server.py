@@ -127,7 +127,12 @@ def send_json():
     f = open("static/data4.json")
     data = json.loads(f.read())
     return jsonify(data)
-    
+
+# @app.route("/textwrap")
+# def textwrap():
+#     f = open("d3textwrap-master/d3textwrap.v0.js")
+#     textwrap = f.read()
+#     return textwrap
 
 ################################################################################
 #############################RESPONSE FORM######################################
