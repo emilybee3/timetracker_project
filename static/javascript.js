@@ -1,13 +1,13 @@
 
       var margin = { top: 50, right: 100, bottom: 100, left: 70},
           width = 2000 - margin.left - margin.right,
-          height = 2000 - margin.top - margin.bottom,
+          height = 1450 - margin.top - margin.bottom,
           gridSize = Math.floor(width / 20), //how big the grid appears in the window
           legendElementWidth = gridSize + 10,
           buckets = 9, //catagories to split data into
           colors = ["red","yellow","green"], // alternatively colorbrewer.YlGnBu[9]
           days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
-          times = ["6a - 8a", "9a", "10a", "11a", "12p", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p-12p"];
+          times = ["6a - 8a", "8a - 9a", "9a - 10a", "10a - 11a", "11a - 12p", "12p - 1p", "1p - 2p", "2p - 3p", "3p - 4p", "4p - 5p", "5p - 6p", "6p - 7p", "7p - 8p", "8p - 9p", "9p - 12p"];
 
       var svg = d3.select("#chart").append("svg") //makes chart 
           .attr("width", width + margin.left + margin.right)
@@ -42,6 +42,7 @@
       var heatmapChart = function() { //makes objects from data
         d3.json("/sendjson",
         function(data) {
+          console.log(data);
 
 //           //THIS FUNCTION MAKES SVG CARDS FOR EACH .HOUR
 

@@ -124,15 +124,42 @@ def mainpage():
 #
 @app.route("/sendjson")
 def send_json():
-    f = open("static/data4.json")
-    data = json.loads(f.read())
-    return jsonify(data)
+    # f = open("static/data4.json")
+    # data = json.loads(f.read())
+    # return jsonify(data)
 
-# @app.route("/textwrap")
-# def textwrap():
-#     f = open("d3textwrap-master/d3textwrap.v0.js")
-#     textwrap = f.read()
-#     return textwrap
+    query = (db.session.query(Response.response_id,
+                              Response.date,
+                              Response.text,
+                              Response.time_interval,
+                              Response.color)
+                        .filter(Response.user_id == session["user_id"])
+                        .all())
+
+
+    # for thing in query:
+    #     date_obj = datetime.strptime(thing[1], "%Y-%m-%d %H:%M:%S")
+    #     day_obj = datetime.strftime(date_obj, "%u")
+    #     print day_obj
+
+    to_json = []
+
+    for item in query:
+        date_obj = datetime.strptime(item[1], "%Y-%m-%d %H:%M:%S")
+        day_obj = datetime.strftime(date_obj, "%u")
+        response_dict = {"response_id": item[0],
+                         "day": day_obj,
+                         "words": item[2],
+                         "hour": item[3],
+                         "value": item[4]}
+
+        to_json.append(response_dict)
+
+    print to_json
+    return jsonify(data=to_json)
+
+
+
 
 ################################################################################
 #############################RESPONSE FORM######################################
