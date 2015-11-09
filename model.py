@@ -34,7 +34,8 @@ class Response(db.Model):
     response_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
     time_interval = db.Column(db.Integer, nullable=False)
-    date = db.Column(db.String(400))
+    date = db.Column(db.DateTime)
+    day = db.Column(db.Integer)
     text = db.Column(db.String(400))
     color = db.Column(db.String(10), nullable=False)
 

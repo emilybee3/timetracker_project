@@ -121,12 +121,16 @@ def show_instructions():
 def mainpage():
     """Main page"""
     return render_template("mainpage.html")
-#
+
 @app.route("/sendjson")
 def send_json():
-    # f = open("static/data4.json")
-    # data = json.loads(f.read())
-    # return jsonify(data)
+
+    # Picking a week number (hard code for now)
+    iso_week_no = 6
+
+    # use that week number to get dates of days 1-7.
+    
+    # Query db to get > day 1 < day 7 (check ratings)
 
     query = (db.session.query(Response.response_id,
                               Response.date,
@@ -135,20 +139,12 @@ def send_json():
                               Response.color)
                         .filter(Response.user_id == session["user_id"])
                         .all())
-
-
-    # for thing in query:
-    #     date_obj = datetime.strptime(thing[1], "%Y-%m-%d %H:%M:%S")
-    #     day_obj = datetime.strftime(date_obj, "%u")
-    #     print day_obj
-
     to_json = []
 
     for item in query:
-        date_obj = datetime.strptime(item[1], "%Y-%m-%d %H:%M:%S")
-        day_obj = datetime.strftime(date_obj, "%u")
         response_dict = {"response_id": item[0],
-                         "day": day_obj,
+                         "day": item[1][7],
+                         "week": item[1][5],
                          "words": item[2],
                          "hour": item[3],
                          "value": item[4]}
@@ -173,6 +169,8 @@ def show_form():
 @app.route('/response', methods=['POST'])
 def submit_form():
     """Process form"""
+    # this will change to store datetimes instead of isotime --cmd
+
     print "route reached"
     # Get form variables
     hourint = request.form["hourint"]
@@ -182,16 +180,19 @@ def submit_form():
     color = request.form["color"]
     print "color: ", color
     #deal with date
-    date_now = datetime.now()
-    date_str = date_now.strftime("%A, %B %d, %Y")
-    date = datetime.strptime(date_str, "%A, %B %d, %Y")
+    date = datetime.now()
+    iso_week = datetime.isocalendar(date)
+    day = iso_week[2]
+
+    # date_str = date_now.strftime("%A, %B %d, %Y")
+    # date = datetime.strptime(date_str, "%A, %B %d, %Y")
     print date
 
     user_id = session["user_id"]
 
     print "I should have printed all the things"
 
-    new_response = Response(user_id=user_id, color=color, date=date, time_interval=hourint, text=text)
+    new_response = Response(user_id=user_id, color=color, date=date, day=day, time_interval=hourint, text=text)
     print new_response
 
     db.session.add(new_response)
