@@ -12,6 +12,8 @@ from datetime import datetime, date
 
 import json
 
+from isoweek import Week
+
 
 
 
@@ -126,25 +128,27 @@ def mainpage():
 def send_json():
 
     # Picking a week number (hard code for now)
-    iso_week_no = 6
-
+    year = 2015
+    week = 46
     # use that week number to get dates of days 1-7.
-    
+
+    monday = Week(year, week).monday()
+    sunday = Week(year, week).sunday()
     # Query db to get > day 1 < day 7 (check ratings)
 
     query = (db.session.query(Response.response_id,
-                              Response.date,
+                              Response.day,
                               Response.text,
                               Response.time_interval,
                               Response.color)
-                        .filter(Response.user_id == session["user_id"])
-                        .all())
+             .filter(Response.user_id == session["user_id"], Response.date >= monday,
+                     Response.date <= sunday)
+             .all())
     to_json = []
 
     for item in query:
         response_dict = {"response_id": item[0],
-                         "day": item[1][7],
-                         "week": item[1][5],
+                         "day": item[1],
                          "words": item[2],
                          "hour": item[3],
                          "value": item[4]}

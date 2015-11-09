@@ -42,19 +42,21 @@ def load_responses():
         # print row
 
         # clever -- we can unpack part of the row!
-        response_id, user_id, time_interval, date, text, color = row.split("|")
+        response_id, user_id, time_interval, date, day, text, color = row.split("|")
         print row.split("|")
 
         # The date is in the file as daynum-month_abbreviation-year;
         # we need to convert it to an actual datetime object.
 
-        # date_obj = datetime.datetime.strptime(date, "%Y-%W-%u")
+        date_obj = datetime.datetime.strptime(date, "%Y-%m-%d %H:%M:%S")
 
+        # seed will change to use datetime for date, not iso --cmd
 
         response = Response(response_id=response_id,
                       user_id=user_id,
                       time_interval=time_interval,
-                      date=date,
+                      date=date_obj,
+                      day=day,
                       text=text,
                       color=color)
 
