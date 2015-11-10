@@ -1,11 +1,13 @@
-
+      //SETS UP GRID SIZE 
       var margin = { top: 50, right: 100, bottom: 100, left: 70},
           width = 2000 - margin.left - margin.right,
           height = 1450 - margin.top - margin.bottom,
           gridSize = Math.floor(width / 20), //how big the grid appears in the window
           legendElementWidth = gridSize + 10,
           buckets = 9, //catagories to split data into
-          colors = ["red","yellow","green"], // alternatively colorbrewer.YlGnBu[9]
+          
+      //DATA FOR AXIS
+          colors = ["red","yellow","green"], 
           days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
           times = ["6a - 8a", "8a - 9a", "9a - 10a", "10a - 11a", "11a - 12p", "12p - 1p", "1p - 2p", "2p - 3p", "3p - 4p", "4p - 5p", "5p - 6p", "6p - 7p", "7p - 8p", "8p - 9p", "9p - 12p"];
 
@@ -13,6 +15,7 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+      //HANDLES CREATING CHART FROM DATE INPUTTED BY USER 
       function updateChart(evt){ 
         $("svg").remove(); //gets rid of old stuff
         var formdate = document.getElementById("date").value;
@@ -22,11 +25,13 @@
         $.post("/pickweek", postparams, makeChart);
       }
 
+      //HANDLES CREATING INITIAL CHART FROM CURRENT DATE
       var initialLoadChart = function() {
        //makes objects from data
         d3.json("/sendjson", makeChart);
       };
 
+      //FUNCTION THAT MAKES THE CHART FROM JSON DATA
       function makeChart(data){
 
         var svg = d3.select("#chart").append("svg") //makes chart 
@@ -57,8 +62,6 @@
 
           console.log(data);
 
-//           //THIS FUNCTION MAKES SVG CARDS FOR EACH .HOUR
-
 
           var cards = svg.selectAll(".hour")
               .data(data.data, function(d){return d.day+":"+d.hour;})
@@ -83,15 +86,8 @@
               .style("fill", function(d) { return d.value; }); //assigns color to cards
 
           cards.select("title").text(function(d) { return d.value; });//turns cards the color of their value
-////////////////////////////////////////////////////////////////////////////////
 
-          console.log(cards)
-
-
-          // var timespent = svg.selectAll(".card") //adds words lables
-                    // .data(data.data)
-                    // .enter()
-
+                //INPUTS AND WRAPS TEXT FOR EACH CARD
                     cards.append("text")
                       .text(function(d) {  
                         return d.words; })
@@ -107,19 +103,13 @@
         });
        
         
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////these endings close the heatmap function 
+  /////these endings close the makeChart function 
        
         };
 /////////////////////////////////////////////////////////////////////////////////////
-
-      
-
-/////////////////////////////////////////////////////////////////////////////////////
-//var formdate = document.getElementById("date").value;
-//console.log(formdate)
+             //event handler that triggers chart update on click 
+             
 $(document).on('ready', function(){
   initialLoadChart();
   document.getElementById("triggersubmit").addEventListener("click", updateChart);// grabbing date when clicked

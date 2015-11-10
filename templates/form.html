@@ -13,12 +13,11 @@
 <form action="/response" method="POST"> 
 
 
-<!-- this input will be the current date  -->
+<!-- this shows the current date  -->
     <input id="date" name="date" type = "hidden" id = "date" value="2/2/01">
 
          <script type="text/javascript">
             var date = document.getElementById('date').value = Date();
-            
             var splitDate = date.split(" ");
             document.write(splitDate[0 ]);
             document.write(" ") ;
@@ -64,7 +63,6 @@ I felt:
     <br><br>
 
 <!-- this is the submit button -->
-
 
     <input type="submit" value="submit">
 </form>
