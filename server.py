@@ -124,12 +124,15 @@ def mainpage():
     """Main page"""
     return render_template("mainpage.html")
 
+@app.route("/pickweek")
+    
+    
 @app.route("/sendjson")
 def send_json():
 
     # Picking a week number (hard code for now)
     year = 2015
-    week = 46
+    week = 46 
     # use that week number to get dates of days 1-7.
 
     monday = Week(year, week).monday()
