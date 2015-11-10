@@ -115,18 +115,19 @@ def show_instructions():
     return render_template("instructions.html")
 
 
-
 ################################################################################
 ###################################MAIN PAGE####################################
 
-@app.route("/mainpage")
+@app.route("/")
 def mainpage():
     """Main page"""
     return render_template("mainpage.html")
 
-@app.route("/pickweek/<int:date>")
-def pickweek(date):
 
+@app.route("/pickweek", methods=['POST'])
+def pickweek():
+
+    formdate = request.form.get("date")
     date = datetime.strptime(formdate, "%Y-%m-%d")
     iso_date = datetime.isocalendar(date)
     year = iso_date[0]
@@ -157,8 +158,6 @@ def pickweek(date):
 
     print to_json
     return jsonify(data=to_json)
-    return render_template("mainpage.html")
-
 
 
 @app.route("/sendjson")
@@ -169,10 +168,8 @@ def send_json():
     year = iso_date[0]
     week = iso_date[1]
 
-
     monday = Week(year, week).monday()
     sunday = Week(year, week).sunday()
-    # Query db to get > day 1 < day 7 (check oratings)
 
     query = (db.session.query(Response.response_id,
                               Response.day,
@@ -197,11 +194,8 @@ def send_json():
     return jsonify(data=to_json)
 
 
-
-
 ################################################################################
 #############################RESPONSE FORM######################################
-
 
 @app.route('/response', methods=['GET'])
 def show_form():
@@ -244,7 +238,7 @@ def submit_form():
 
     # flash("Response- %s added." % text)
 
-    return redirect("/mainpage")
+    return redirect("/")
 
 ################################################################################
 ################################################################################
