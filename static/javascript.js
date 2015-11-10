@@ -38,8 +38,9 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  
-      var heatmapChart = function() { //makes objects from data
+        
+      var heatmapChart = function() {
+       //makes objects from data
         d3.json("/sendjson",
         function(data) {
           // console.log(data);
@@ -103,3 +104,72 @@
 /////////////////////////////////////////////////////////////////////////////////////
 
       heatmapChart();
+
+/////////////////////////////////////////////////////////////////////////////////////
+var formdate = document.getElementById("date").value;
+console.log(formdate)
+      
+      var updateChart = function() { //makes objects from data
+        d3.json("/pickweek/" + "formdate",//pull date out of button on form,
+        function(data) {
+          // console.log(data);
+
+//           //THIS FUNCTION MAKES SVG CARDS FOR EACH .HOUR
+
+
+          var cards = svg.selectAll(".hour")
+              .data(data.data, function(d){return d.day+":"+d.hour;})
+              .enter().append("g");    
+              //select all .hours and make a card for each
+
+          
+
+          cards.append("rect") //puts svg rectangle for each card
+              .attr("y", function(d) { return (d.hour - 1) * (gridSize); })
+              .attr("x", function(d) { return (d.day - 1) * (gridSize *2); })
+              .attr("rx", 1)
+              .attr("ry", 1)
+              .attr("class", "hour bordered")
+              .attr("id", function(d) { return ("card" + d.response_id);})
+              .attr("width", gridSize * 2)
+              .attr("height", gridSize)
+              .style("fill", function(d) {return d.value});
+
+
+          cards.transition().duration(1000)
+              .style("fill", function(d) { return d.value; }); //assigns color to cards
+
+          cards.select("title").text(function(d) { return d.value; });//turns cards the color of their value
+////////////////////////////////////////////////////////////////////////////////
+
+          console.log(cards)
+
+
+          // var timespent = svg.selectAll(".card") //adds words lables
+                    // .data(data.data)
+                    // .enter()
+
+                    cards.append("text")
+                      .text(function(d) {  
+                        return d.words; })
+                      .attr("y", function(d) { return (d.hour - 1) * gridSize * 2 + 10; })
+                      .attr("x", function(d) { return (d.day - 1) * gridSize * 2+ 10; })
+                      .style("text-anchor", "middle")
+                      .attr("id", function(d){ return ("words" + d.response_id);});//setting id to be the rsponse id and string word
+
+        cards[0].forEach(function(card){ 
+          var responseId = card.__data__.response_id;
+          var correspondingRectangle = d3.select("#card" + responseId);//grabbing the words to be changed by id
+          d3.select("#words" + responseId).textwrap(correspondingRectangle, 5);
+        });
+       
+        
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////these endings close the heatmap function 
+       });
+        };
+
+      document.getElementById("date").addEventListener("click", updateChart());// grabbing date when clicked
+        

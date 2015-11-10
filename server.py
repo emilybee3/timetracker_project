@@ -124,20 +124,55 @@ def mainpage():
     """Main page"""
     return render_template("mainpage.html")
 
-@app.route("/pickweek")
-    
-    
-@app.route("/sendjson")
-def send_json():
+@app.route("/pickweek/<int:date>")
+def pickweek(date):
 
-    # Picking a week number (hard code for now)
-    year = 2015
-    week = 46 
-    # use that week number to get dates of days 1-7.
+    date = datetime.strptime(formdate, "%Y-%m-%d")
+    iso_date = datetime.isocalendar(date)
+    year = iso_date[0]
+    week = iso_date[1]
 
     monday = Week(year, week).monday()
     sunday = Week(year, week).sunday()
-    # Query db to get > day 1 < day 7 (check ratings)
+    # Query db to get > day 1 < day 7 (check oratings)
+
+    query = (db.session.query(Response.response_id,
+                              Response.day,
+                              Response.text,
+                              Response.time_interval,
+                              Response.color)
+             .filter(Response.user_id == session["user_id"], Response.date >= monday,
+                     Response.date <= sunday)
+             .all())
+    to_json = []
+
+    for item in query:
+        response_dict = {"response_id": item[0],
+                         "day": item[1],
+                         "words": item[2],
+                         "hour": item[3],
+                         "value": item[4]}
+
+        to_json.append(response_dict)
+
+    print to_json
+    return jsonify(data=to_json)
+    return render_template("mainpage.html")
+
+
+
+@app.route("/sendjson")
+def send_json():
+
+    date = datetime.now()
+    iso_date = datetime.isocalendar(date)
+    year = iso_date[0]
+    week = iso_date[1]
+
+
+    monday = Week(year, week).monday()
+    sunday = Week(year, week).sunday()
+    # Query db to get > day 1 < day 7 (check oratings)
 
     query = (db.session.query(Response.response_id,
                               Response.day,
