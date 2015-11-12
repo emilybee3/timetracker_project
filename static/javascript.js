@@ -39,27 +39,27 @@
           .append("g") //?
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");//puts chart inside of the margins
 
-      var dayLabels = svg.selectAll(".dayLabel") //adds day lables 
-          .data(days)
-          .enter().append("text")
-            .text(function(d) { return d; })
-            .attr("x", function(d, i) { return i * gridSize * 2.2; })// changes spacing
-            .attr("y", 0)
-            .style("text-anchor", "middle")
-            .attr("transform", "translate(" + gridSize / 2 + ", -6)")
-            .attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
+        var dayLabels = svg.selectAll(".dayLabel") //adds day lables 
+            .data(days)
+            .enter().append("text")
+              .text(function(d) { return d; })
+              .attr("x", function(d, i) { return i * gridSize * 2.2; })// changes spacing
+              .attr("y", 0)
+              .style("text-anchor", "middle")
+              .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+              .attr("class", function (d, i) { return ((i >= 0 && i <= 4) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
 
-      var timeLabels = svg.selectAll(".timeLabel") //adds time lables
-          .data(times)
-          .enter().append("text")
-            .text(function (d) { return d; })
-            .attr("x", 0)
-            .attr("y", function (d, i) { return i * gridSize; })//changes spacing
-            .style("text-anchor", "end")
-            .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
-            .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
+        var timeLabels = svg.selectAll(".timeLabel") //adds time lables
+            .data(times)
+            .enter().append("text")
+              .text(function (d) { return d; })
+              .attr("x", 0)
+              .attr("y", function (d, i) { return i * gridSize; })//changes spacing
+              .style("text-anchor", "end")
+              .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+              .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
 
-          console.log(data);
+            console.log(data);
 
 
           var cards = svg.selectAll(".hour")

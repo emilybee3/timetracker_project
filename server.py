@@ -28,7 +28,7 @@ app.secret_key = "ABC"
 app.jinja_env.undefined = StrictUndefined
 
 #################################################################################
-##################################LOGIN############################################
+##################################LOGIN/ LOGOUT############################################
 
 
 @app.route('/', methods=['GET'])
@@ -64,6 +64,15 @@ def login_process():
     #give user feedback
     flash("Logged in")
     return redirect("/chart")
+
+
+@app.route('/logout')
+def logout():
+    """Log out."""
+
+    del session["user_id"]
+    flash("Logged Out.")
+    return redirect("/")
 
 ###############################################################################
 ######################################SIGN UP###################################
@@ -143,7 +152,7 @@ def send_json():
                        .filter(Response.user_id == session["user_id"],
                                Response.date >= monday,
                                Response.date <= sunday).all())
-    # print week_data_query
+    print week_data_query
     #create json dictionary from query responses, append to list
     to_json = []
 
@@ -153,6 +162,8 @@ def send_json():
 
     #return json data object of list containing json dictionary
     return jsonify(data=to_json)
+    print "I'm sending json!"
+    print to_json
 
 
 @app.route("/pickweek", methods=['POST'])
@@ -165,18 +176,23 @@ def pickweek():
     date = datetime.strptime(formdate, "%Y-%m-%d")
 
     monday, sunday = get_monday_sunday(date)#call helper function that converts dates
+    print monday, sunday
 
     week_data_query = (db.session.query(Response)
-                      .filter(Response.user_id == session["user_id"], Response.date >= monday,
-                              Response.date <= sunday).all())
+                       .filter(Response.user_id == session["user_id"], Response.date >= monday,
+                               Response.date <= sunday).all())
+    print week_data_query
     #create json dictionary from query responses
     to_json = []
+
 
     for response in week_data_query:
         to_json.append(response.to_d3_dict())
 
     #return json data object of list containing json dictionary
     return jsonify(data=to_json)
+    print "i'm sending data!"
+    print to_json
 
 
 
@@ -213,9 +229,8 @@ def submit_form():
     user_id = session["user_id"]
 
     #see if there is already a response with the same day and time id in db
-    # user = User.query.filter_by(email=email).first()
     test_response = Response.query.filter(Response.date == date, Response.time_interval == hourint).all()
-    print test_response
+
     if test_response:
         flash("You already submitted a response for that time period")
         return redirect("/response")

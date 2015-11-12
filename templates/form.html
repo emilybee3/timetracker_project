@@ -12,9 +12,8 @@
  {% for flash in get_flashed_messages() %}
         {{ flash }}
  {% endfor %}
+
 <form action="/response" method="POST"> 
-
-
 <!-- this shows the current date  -->
     <input id="date" name="date" type = "hidden" id = "date" value="2/2/01">
 
@@ -53,8 +52,8 @@ For the hour of:
     <br><br>
 
 <!-- this is where the user will input what they were doing -->
-I was:<br>
-    <textarea rows="4" cols="50" name="text" id="text" value="something" maxlength="100"></textarea>
+I was: (you have 100 characters to describe your time)<br>
+    <textarea rows="2" cols="50" name="text" id="text" value="something" maxlength="100"></textarea>
     <br><br>
 
 <!-- this is where the user indicates how they felt -->
@@ -67,8 +66,10 @@ I felt:
 <!-- this is the submit button -->
 
     <input type="submit" value="submit">
+    <br><br>
 </form>
 
+<a id="skiptochart" class="click-me" href="http://localhost:5000/chart">Skip to your chart!</a>
 
 </body>
 </html>
