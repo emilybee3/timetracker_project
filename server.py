@@ -1,5 +1,5 @@
 # this page has Flask routes
-"""Time Tracker."""
+"""Time Tracker"""
 
 from jinja2 import StrictUndefined
 
@@ -12,6 +12,10 @@ from datetime import datetime, date
 import json
 
 from isoweek import Week
+
+from helperfunctions import get_monday_sunday
+
+from flask.ext.sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
@@ -47,12 +51,12 @@ def login_process():
 
     if not user:
         flash("No users match this email address")
-        return redirect("/login")
+        return redirect("/")
 
     #check for correct password
     if user.password != password:
         flash("Incorrect password")
-        return redirect("/login")
+        return redirect("/")
 
     #add logged in user to session
     session["user_id"] = user.user_id
@@ -78,31 +82,28 @@ def signup_process():
 
     # Get form variables
     email = request.form["email"]
-    print email
     password = request.form["password"]
-    print password
     phone = request.form["phone"]
-    print phone
     name = request.form["name"]
-    print name
 
     #see if user is already in database
     user = User.query.filter_by(email=email).first()
 
+
     if user:
         flash("You already have an account")
-        return redirect("/login")
+        return redirect("/")
 
     #create a new user from form info
     new_user = User(email=email, password=password, name=name, phone=phone)
 
     #add user to db
     db.session.add(new_user)
-    print "I've added your user!"
+    # print "I've added your user!"
 
     #commit new user to db
     db.session.commit()
-    print "I've commited your user!"
+    # print "I've commited your user!"
 
     #add user to session
     session["user_id"] = user.user_id
@@ -136,35 +137,19 @@ def send_json():
 
     #figure out the start and end dates of the week based on the Monday and Sunday of that week
     date = datetime.now()
+    monday, sunday = get_monday_sunday(date)#call helper function that converts dates
 
-    #convert date into isocalendar to pull out date of Monday and Sunday
-    iso_date = datetime.isocalendar(date)
-    year = iso_date[0]
-    week = iso_date[1]
-    monday = Week(year, week).monday()
-    sunday = Week(year, week).sunday()
-
-    #query database for data from current week and signed in user
-    query = (db.session.query(Response.response_id,
-                              Response.day,
-                              Response.text,
-                              Response.time_interval,
-                              Response.color)
-             .filter(Response.user_id == session["user_id"], Response.date >= monday,
-                     Response.date <= sunday)
-             .all())
-
+    week_data_query = (db.session.query(Response)
+                       .filter(Response.user_id == session["user_id"],
+                               Response.date >= monday,
+                               Response.date <= sunday).all())
+    # print week_data_query
     #create json dictionary from query responses, append to list
     to_json = []
 
-    for item in query:
-        response_dict = {"response_id": item[0],
-                         "day": item[1],
-                         "words": item[2],
-                         "hour": item[3],
-                         "value": item[4]}
+    for response in week_data_query:
+        to_json.append(response.to_d3_dict())
 
-        to_json.append(response_dict)
 
     #return json data object of list containing json dictionary
     return jsonify(data=to_json)
@@ -179,34 +164,16 @@ def pickweek():
     #turn date from mainpage into a datetime object
     date = datetime.strptime(formdate, "%Y-%m-%d")
 
-    #convert date into isocalendar to pull out date of Monday and Sunday
-    iso_date = datetime.isocalendar(date)
-    year = iso_date[0]
-    week = iso_date[1]
-    monday = Week(year, week).monday()
-    sunday = Week(year, week).sunday()
+    monday, sunday = get_monday_sunday(date)#call helper function that converts dates
 
-    #query database for data from chosen week and signed in user
-    query = (db.session.query(Response.response_id,
-                              Response.day,
-                              Response.text,
-                              Response.time_interval,
-                              Response.color)
-             .filter(Response.user_id == session["user_id"], Response.date >= monday,
-                     Response.date <= sunday)
-             .all())
-
+    week_data_query = (db.session.query(Response)
+                      .filter(Response.user_id == session["user_id"], Response.date >= monday,
+                              Response.date <= sunday).all())
     #create json dictionary from query responses
     to_json = []
 
-    for item in query:
-        response_dict = {"response_id": item[0],
-                         "day": item[1],
-                         "words": item[2],
-                         "hour": item[3],
-                         "value": item[4]}
-
-        to_json.append(response_dict)
+    for response in week_data_query:
+        to_json.append(response.to_d3_dict())
 
     #return json data object of list containing json dictionary
     return jsonify(data=to_json)
@@ -233,7 +200,8 @@ def submit_form():
     color = request.form["color"]
 
     #set date to now
-    date = datetime.now()
+    old_date = datetime.now()
+    date = datetime.date(old_date)
 
     #extract day from datetime stamp
     iso_week = datetime.isocalendar(date)
@@ -242,13 +210,26 @@ def submit_form():
     #set user_id to logged in user
     user_id = session["user_id"]
 
-    #create a new response
+    #see if there is already a response with the same day and time id in db
+    # user = User.query.filter_by(email=email).first()
+    test_response = db.session.query(Response).filter_by(date="date", time_interval = "hourint").all()
+    print test_response
+    # if response:
+    #     flash("You already submitted a response for that time period")
+    #     return redirect("/login")
+    # if user:
+
+    #     flash("You already have an account")
+    #     return redirect("/login")
+
+
+    # create a new response
     new_response = Response(user_id=user_id, color=color, date=date, day=day, time_interval=hourint, text=text)
 
     #add new response to database
-    db.session.add(new_response)
-    db.session.commit()
-    print "I've commited your response!"
+    # db.session.add(new_response)
+    # db.session.commit()
+    # print "I've commited your response!"
 
     return redirect("/chart")
 

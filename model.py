@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 ##############################################################################
 # Model definitions
 
@@ -42,6 +43,13 @@ class Response(db.Model):
 # Define relationship to user
     user = db.relationship("User",
                            backref=db.backref("responses", order_by=response_id))
+
+    def to_d3_dict(self):
+        return {"response_id": self.response_id,
+                "day": self.day,
+                "words": self.text,
+                "hour": self.time_interval,
+                "value": self.color}
 
     def __repr__(self):
         """Provide helpful representation when printed."""

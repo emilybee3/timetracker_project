@@ -11,7 +11,6 @@
           days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
           times = ["6a - 8a", "8a - 9a", "9a - 10a", "10a - 11a", "11a - 12p", "12p - 1p", "1p - 2p", "2p - 3p", "3p - 4p", "4p - 5p", "5p - 6p", "6p - 7p", "7p - 8p", "8p - 9p", "9p - 12p"];
 
-      
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -109,7 +108,7 @@
         };
 /////////////////////////////////////////////////////////////////////////////////////
              //event handler that triggers chart update on click 
-             
+
 $(document).on('ready', function(){
   initialLoadChart();
   document.getElementById("triggersubmit").addEventListener("click", updateChart);// grabbing date when clicked
