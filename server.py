@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, flash, redirect, session, jso
 
 from model import connect_to_db, db, User, Response
 
-from datetime import datetime, date
+from datetime import datetime, date, time
 
 import json
 
@@ -201,7 +201,9 @@ def submit_form():
 
     #set date to now
     old_date = datetime.now()
-    date = datetime.date(old_date)
+    stripped_date = datetime.date(old_date)
+    date = datetime.combine(stripped_date, datetime.min.time())
+    print date
 
     #extract day from datetime stamp
     iso_week = datetime.isocalendar(date)
@@ -212,23 +214,18 @@ def submit_form():
 
     #see if there is already a response with the same day and time id in db
     # user = User.query.filter_by(email=email).first()
-    test_response = db.session.query(Response).filter_by(date="date", time_interval = "hourint").all()
+    test_response = Response.query.filter(Response.date == date, Response.time_interval == hourint).all()
     print test_response
-    # if response:
-    #     flash("You already submitted a response for that time period")
-    #     return redirect("/login")
-    # if user:
-
-    #     flash("You already have an account")
-    #     return redirect("/login")
-
+    if test_response:
+        flash("You already submitted a response for that time period")
+        return redirect("/response")
 
     # create a new response
     new_response = Response(user_id=user_id, color=color, date=date, day=day, time_interval=hourint, text=text)
 
-    #add new response to database
-    # db.session.add(new_response)
-    # db.session.commit()
+    # add new response to database
+    db.session.add(new_response)
+    db.session.commit()
     # print "I've commited your response!"
 
     return redirect("/chart")

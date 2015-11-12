@@ -9,7 +9,9 @@
     </head>
 
 <body>
-
+ {% for flash in get_flashed_messages() %}
+        {{ flash }}
+ {% endfor %}
 <form action="/response" method="POST"> 
 
 
