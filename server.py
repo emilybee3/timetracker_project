@@ -152,7 +152,7 @@ def send_json():
                        .filter(Response.user_id == session["user_id"],
                                Response.date >= monday,
                                Response.date <= sunday).all())
-    print week_data_query
+    # print week_data_query
     #create json dictionary from query responses, append to list
     to_json = []
 
@@ -162,8 +162,7 @@ def send_json():
 
     #return json data object of list containing json dictionary
     return jsonify(data=to_json)
-    print "I'm sending json!"
-    print to_json
+
 
 
 @app.route("/pickweek", methods=['POST'])
@@ -181,7 +180,7 @@ def pickweek():
     week_data_query = (db.session.query(Response)
                        .filter(Response.user_id == session["user_id"], Response.date >= monday,
                                Response.date <= sunday).all())
-    print week_data_query
+    # print week_data_query
     #create json dictionary from query responses
     to_json = []
 
@@ -191,8 +190,7 @@ def pickweek():
 
     #return json data object of list containing json dictionary
     return jsonify(data=to_json)
-    print "i'm sending data!"
-    print to_json
+    
 
 
 

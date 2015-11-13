@@ -2,10 +2,11 @@
 <meta charset="utf-8">
 <html>
   <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
    <!-- STYLES AXIS AND CARDS IN CHART -->
     <style>
       rect.bordered {
-        stroke: #E6E6E6;
+        stroke: #666;
         stroke-width:2px;   
       }
 
@@ -33,7 +34,7 @@
   <body>
   
   <!-- DATE INPUT FORM -->
-   
+    <br>
     <input type="date" name="date" id="date">
     <button id="triggersubmit">See a different week</button>
 
@@ -44,16 +45,17 @@
   <!-- LOG OUT LINK -->
     
     <a id="logout" class="click-me" href="http://localhost:5000/logout">Logout</a>
-
+  
+  <!-- THIS IS THE SEARCH BOX -->
 
   <!-- THIS IS THE SECTION WITH THE CHART  -->
-    
-    <div id="chart"></div>
-    <div id="dataset-picker">
+    <div class="container-fluid">
+      <div id="chart"></div>
+      <div id="dataset-picker">
+      </div>
+      <script src="/static/d3textwrap.v0.js" charset="utf-8"></script>
+      <script src="static/javascript.js"></script>
     </div>
-    <script src="/static/d3textwrap.v0.js" charset="utf-8"></script>
-    <script src="static/javascript.js"></script>
-    
   <!-- THIS ENDS THE SECTION WITH THE CHART -->
   
   </body>
