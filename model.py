@@ -54,7 +54,7 @@ class Response(db.Model):
     def __repr__(self):
         """Provide helpful representation when printed."""
 
-        return "<Time Interval=%s Day=%s DATE=%s text=%s>" % (self.time_interval, self.day, self.date, self.text)
+        return "<Time Interval=%s Day=%s DATE=%s text=%s color=%s>" % (self.time_interval, self.day, self.date, self.text, self.color)
 
 ##############################################################################
 # Helper functions

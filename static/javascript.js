@@ -59,7 +59,7 @@
               .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
               // .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
 
-            console.log(data);
+            // console.log(data);
 
 
           var cards = svg.selectAll(".hour")
@@ -78,13 +78,22 @@
               .attr("id", function(d) { return ("card" + d.response_id);})
               .attr("width", gridSize * 2)
               .attr("height", gridSize)
-              .style("fill", function(d) {return d.value});
+              .style("fill", function(d) {
+                if (cards.hasOwnProperty("d.color")) {console.log(d.color);}
+                else
+                  {return d.value;}});
 
 
           cards.transition().duration(1000)
-              .style("fill", function(d) { return d.value; }); //assigns color to cards
+              .style("fill", function(d) {
+                if (cards.hasOwnProperty("d.color")) {return d.color;}
+                else
+                  {return d.value;}}); //assigns color to cards
 
-          cards.select("title").text(function(d) { return d.value; });//turns cards the color of their value
+          cards.select("title").text(function(d) {
+                if (cards.hasOwnProperty("d.color")) {return d.color;}
+                else
+                  {return d.value;}});//turns cards the color of their value
 
                 //INPUTS AND WRAPS TEXT FOR EACH CARD
                     cards.append("text")
@@ -112,6 +121,15 @@
 $(document).on('ready', function(){
   initialLoadChart();
   document.getElementById("triggersubmit").addEventListener("click", updateChart);// grabbing date when clicked
+  document.getElementById("search-btn").addEventListener("click", function(evt){evt.preventDefault();   
+  var searchTerm = (document.getElementById("search").value);
+  console.log(searchTerm);
+  $("div:contains(" + searchTerm + ")").parents("foreignobject").prev("rect").attr("style", "fill: rgb(0, 153, 255)");
+  // console.log(div:contains(searchTerm));
+    // $.post("/search", {'keyword': searchTerm}, function(results){
+    //   console.log(results); //this is the ajxy part- it says how to send info, where to send it, what to send, then what to do
+    //   //with what comes back 
 
-})
-        
+    // })
+  })
+})        
