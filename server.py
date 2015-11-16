@@ -140,43 +140,43 @@ def mainpage():
     return render_template("mainpage.html")
 
 
-@app.route("/search", methods=['POST'])
-def search():
-    """handles search function"""
-    # print "HELLO WE PINGED HERE"
-    keyword = request.form.get("keyword")
-    print keyword
-    # return "this is a string"
+# @app.route("/search", methods=['POST'])
+# def search():
+#     """handles search function"""
+#     # print "HELLO WE PINGED HERE"
+#     keyword = request.form.get("keyword")
+#     print keyword
+#     # return "this is a string"
 
-    date = datetime.now()
-    monday, sunday = get_monday_sunday(date)#call helper function that converts dates
-    print monday, sunday
+#     date = datetime.now()
+#     monday, sunday = get_monday_sunday(date)#call helper function that converts dates
+#     print monday, sunday
 
-    week_data_query = (db.session.query(Response)
-                       .filter(Response.user_id == session["user_id"],
-                               Response.date >= monday,
-                               Response.date <= sunday).all())
-    # print week_data_query
-    #create json dictionary from query responses, append to list
-    to_json = []
+#     week_data_query = (db.session.query(Response)
+#                        .filter(Response.user_id == session["user_id"],
+#                                Response.date >= monday,
+#                                Response.date <= sunday).all())
+#     # print week_data_query
+#     #create json dictionary from query responses, append to list
+#     to_json = []
 
 
-    for response in week_data_query:
-        # print response
-        if keyword in response.text:
-            # new_response = response
-            # print new_response.color
-            response_dict = response.to_d3_dict()
-            # print response_dict
-            response_dict["color"] = "#0066ff"
-            # print response_dict
+#     for response in week_data_query:
+#         # print response
+#         if keyword in response.text:
+#             # new_response = response
+#             # print new_response.color
+#             response_dict = response.to_d3_dict()
+#             # print response_dict
+#             response_dict["color"] = "#0066ff"
+#             # print response_dict
 
-            to_json.append(response_dict)
-            # print to_json
+#             to_json.append(response_dict)
+#             # print to_json
 
 
     #return json data object of list containing json dictionary
-    return jsonify(data=to_json)
+    # return jsonify(data=to_json)
 
 
 

@@ -122,14 +122,19 @@ $(document).on('ready', function(){
   initialLoadChart();
   document.getElementById("triggersubmit").addEventListener("click", updateChart);// grabbing date when clicked
   document.getElementById("search-btn").addEventListener("click", function(evt){evt.preventDefault();   
-  var searchTerm = (document.getElementById("search").value);
-  console.log(searchTerm);
-  $("div:contains(" + searchTerm + ")").parents("foreignobject").prev("rect").attr("style", "fill: rgb(0, 153, 255)");
-  // console.log(div:contains(searchTerm));
-    // $.post("/search", {'keyword': searchTerm}, function(results){
-    //   console.log(results); //this is the ajxy part- it says how to send info, where to send it, what to send, then what to do
-    //   //with what comes back 
+  
+////////////////////////////search functions/////////////////////////////////////////////////////////////
+//selects the parents of the div with search term- which is the foreign object created by
+  //the wrap plugin, finds its sibling, the rectangle, and changes the fill of that"
+  
+    var searchTerm = (document.getElementById("search").value);
+    console.log(searchTerm);
+    $("div:contains(" + searchTerm + ")").parents("foreignobject").prev("rect").attr("style", "stroke-width: 8px").css("stroke", "blue");
 
-    // })
   })
 })        
+
+  document.getElementById("clear-search").addEventListener("click", function(evt){evt.preventDefault(); 
+  $("rect").attr("style", "stroke-width: 2px").css("stroke", "grey");
+
+})
