@@ -137,4 +137,5 @@ $(document).on('ready', function(){
   document.getElementById("clear-search").addEventListener("click", function(evt){evt.preventDefault(); 
   $("rect").attr("style", "stroke-width: 2px").css("stroke", "grey");
 
-})
+});
+

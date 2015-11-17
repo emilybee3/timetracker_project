@@ -27,6 +27,16 @@ app.secret_key = "ABC"
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
 
+TIMES = [{"hour": "6am - 8am", "time_interval": 1}, {"hour": "8 am - 9 am", "time_interval": 2},
+         {"hour": "9 am - 10 am", "time_interval": 3}, {"hour": "10 am - 11 am", "time_interval": 4},
+         {"hour": "11 am - 12 pm", "time_interval": 5}, {"hour": "12 pm - 1 pm", "time_interval": 6},
+         {"hour": "1 pm - 2 pm", "time_interval": 7}, {"hour": "2 pm - 3 pm", "time_interval": 8},
+         {"hour": "3 pm - 4 pm", "time_interval": 9}, {"hour": "4 pm - 5 pm", "time_interval": 10},
+         {"hour": "5 pm - 6 pm", "time_interval": 11}, {"hour": "6 pm - 7 pm", "time_interval": 12},
+         {"hour": "7 pm - 8 pm", "time_interval": 13}, {"hour": "8 pm - 9 pm", "time_interval": 14},
+         {"hour": "9 pm - 11 pm", "time_interval": 15}]
+
+
 #################################################################################
 ##################################LOGIN/ LOGOUT############################################
 
@@ -98,7 +108,6 @@ def signup_process():
     #see if user is already in database
     user = User.query.filter_by(email=email).first()
 
-
     if user:
         flash("You already have an account")
         return redirect("/")
@@ -137,47 +146,8 @@ def show_instructions():
 @app.route("/chart")
 def mainpage():
     """Main page with chart"""
+
     return render_template("mainpage.html")
-
-
-# @app.route("/search", methods=['POST'])
-# def search():
-#     """handles search function"""
-#     # print "HELLO WE PINGED HERE"
-#     keyword = request.form.get("keyword")
-#     print keyword
-#     # return "this is a string"
-
-#     date = datetime.now()
-#     monday, sunday = get_monday_sunday(date)#call helper function that converts dates
-#     print monday, sunday
-
-#     week_data_query = (db.session.query(Response)
-#                        .filter(Response.user_id == session["user_id"],
-#                                Response.date >= monday,
-#                                Response.date <= sunday).all())
-#     # print week_data_query
-#     #create json dictionary from query responses, append to list
-#     to_json = []
-
-
-#     for response in week_data_query:
-#         # print response
-#         if keyword in response.text:
-#             # new_response = response
-#             # print new_response.color
-#             response_dict = response.to_d3_dict()
-#             # print response_dict
-#             response_dict["color"] = "#0066ff"
-#             # print response_dict
-
-#             to_json.append(response_dict)
-#             # print to_json
-
-
-    #return json data object of list containing json dictionary
-    # return jsonify(data=to_json)
-
 
 
 @app.route("/sendjson")
@@ -229,34 +199,20 @@ def pickweek():
 
     #return json data object of list containing json dictionary
     return jsonify(data=to_json)
-    
-
 
 
 ################################################################################
 #############################RESPONSE FORM######################################
 
 
-@app.route('/response', methods=['GET'])
-def show_form():
-    """Show timetracker form"""
-    return render_template("form.html")
-
-
-@app.route('/response', methods=['POST'])
+@app.route('/response', methods=['GET', 'POST'])
 def submit_form():
     """Process timetracker form"""
-
-    # get form variables
-    hourint = request.form["hourint"]
-    text = request.form["text"]
-    color = request.form["color"]
-
-    #set date to now
+########################################Show Proper Form########################################################    
+    #set date
     old_date = datetime.now()
     stripped_date = datetime.date(old_date)
     date = datetime.combine(stripped_date, datetime.min.time())
-    print date
 
     #extract day from datetime stamp
     iso_week = datetime.isocalendar(date)
@@ -266,21 +222,30 @@ def submit_form():
     user_id = session["user_id"]
 
     #see if there is already a response with the same day and time id in db
-    test_response = Response.query.filter(Response.date == date, Response.time_interval == hourint).all()
+    test_response = db.session.query(Response.time_interval).filter(Response.date == date, Response.user_id == session["user_id"]).all()
+    #create a list of the time intervals from above query
+    used_times = [item[0] for item in test_response]#list comprehension omg
 
-    if test_response:
-        flash("You already submitted a response for that time period")
-        return redirect("/response")
+    #only display times that haven't already been filled out
+    if request.method == 'GET':
+        return render_template("form.html", times=TIMES, used_times=used_times)
+#######################################Process form################################################################################ 
+    else:
+        # get form variables
+        hourint = request.form["hourint"]
+        text = request.form["text"]
+        color = request.form["color"]
 
-    # create a new response
-    new_response = Response(user_id=user_id, color=color, date=date, day=day, time_interval=hourint, text=text)
 
-    # add new response to database
-    db.session.add(new_response)
-    db.session.commit()
-    # print "I've commited your response!"
+        # create a new response
+        new_response = Response(user_id=user_id, color=color, date=date, day=day, time_interval=hourint, text=text)
 
-    return redirect("/chart")
+        # add new response to database
+        db.session.add(new_response)
+        db.session.commit()
+        # print "I've commited your response!"
+
+        return redirect("/chart?times="+",".join(str(x) for x in TIMES))
 
 ################################################################################
 ################################################################################
