@@ -1,24 +1,31 @@
 # this page has Flask routes
 """Time Tracker"""
-
+import os
 from jinja2 import StrictUndefined
-
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
-
 from model import connect_to_db, db, User, Response
-
 from datetime import datetime, date, time
-
 import json
-
 from isoweek import Week
-
 from helperfunctions import get_monday_sunday
-
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask_mail import Mail
+from flask.ext.mail import Message
+import config
 
 
 app = Flask(__name__)
+
+app.config.update(
+    #EMAIL SETTINGS
+    MAIL_SERVER=config.MAIL_SERVER,
+    MAIL_PORT=config.MAIL_PORT,
+    MAIL_USE_SSL=True,
+    MAIL_USERNAME=config.MAIL_USERNAME,
+    MAIL_PASSWORD=config.MAIL_PASSWORD
+)
+mail = Mail(app)
+
 
 # Required to use Flask sessions and the debug toolbar
 app.secret_key = "ABC"
@@ -187,7 +194,8 @@ def pickweek():
     print monday, sunday
 
     week_data_query = (db.session.query(Response)
-                       .filter(Response.user_id == session["user_id"], Response.date >= monday,
+                       .filter(Response.user_id == session["user_id"], 
+                               Response.date >= monday,
                                Response.date <= sunday).all())
     # print week_data_query
     #create json dictionary from query responses
@@ -207,7 +215,7 @@ def pickweek():
 
 @app.route('/response', methods=['GET', 'POST'])
 def submit_form():
-    """Process timetracker form"""
+    """Show and Process timetracker form"""
 ########################################Show Proper Form########################################################    
     #set date
     old_date = datetime.now()
@@ -222,13 +230,16 @@ def submit_form():
     user_id = session["user_id"]
 
     #see if there is already a response with the same day and time id in db
-    test_response = db.session.query(Response.time_interval).filter(Response.date == date, Response.user_id == session["user_id"]).all()
+    test_response = (db.session.query(Response.time_interval)
+                     .filter(Response.date == date,
+                             Response.user_id == session["user_id"]).all())
     #create a list of the time intervals from above query
-    used_times = [item[0] for item in test_response]#list comprehension omg
+    used_times = [item[0] for item in test_response]  #list comprehension omg
 
     #only display times that haven't already been filled out
     if request.method == 'GET':
         return render_template("form.html", times=TIMES, used_times=used_times)
+
 #######################################Process form################################################################################ 
     else:
         # get form variables
@@ -236,16 +247,43 @@ def submit_form():
         text = request.form["text"]
         color = request.form["color"]
 
-
         # create a new response
-        new_response = Response(user_id=user_id, color=color, date=date, day=day, time_interval=hourint, text=text)
+        new_response = (Response(user_id=user_id, color=color, date=date, day=day,
+                                 time_interval=hourint, text=text))
 
         # add new response to database
         db.session.add(new_response)
         db.session.commit()
-        # print "I've commited your response!"
 
         return redirect("/chart?times="+",".join(str(x) for x in TIMES))
+
+################################################################################
+#############################Email Notifications######################################
+@app.route("/email")
+def sendemail():
+
+    # sg = sendgrid.SendGridClient(api_user, api_key)
+    # message = sendgrid.Mail()
+
+    # message.add_to("emilybee3@gmail.com")
+    # message.set_from("emilybee3@gmail.com")
+    # message.set_subject("Sending with SendGrid is Fun")
+    # message.set_html("and easy to do anywhere, even with Python")
+
+    # sg.send(message)
+
+    msg = Message('test subject', sender=config.ADMINS[0], recipients=config.ADMINS)
+    msg.body = 'text body'
+    msg.html = '<b>HTML</b> body'
+    with app.app_context():
+        mail.send(msg)
+
+
+
+
+
+
+
 
 ################################################################################
 ################################################################################
