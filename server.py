@@ -262,19 +262,9 @@ def submit_form():
 @app.route("/email")
 def sendemail():
 
-    # sg = sendgrid.SendGridClient(api_user, api_key)
-    # message = sendgrid.Mail()
-
-    # message.add_to("emilybee3@gmail.com")
-    # message.set_from("emilybee3@gmail.com")
-    # message.set_subject("Sending with SendGrid is Fun")
-    # message.set_html("and easy to do anywhere, even with Python")
-
-    # sg.send(message)
-
-    msg = Message('test subject', sender=config.ADMINS[0], recipients=config.ADMINS)
+    msg = Message('Your reminder!', sender=config.ADMINS[0], recipients=config.ADMINS)
     msg.body = 'text body'
-    msg.html = '<b>HTML</b> body'
+    msg.html = '<b>Its time to track your time! Please visit:"http://localhost:5000/response"</b>'
     with app.app_context():
         mail.send(msg)
 
