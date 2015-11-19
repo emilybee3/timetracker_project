@@ -12,7 +12,9 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from flask.ext.mail import Message
 import config
+from apscheduler.schedulers.blocking import BlockingScheduler
 
+scheduler = BlockingScheduler()
 
 app = Flask(__name__)
 
@@ -261,6 +263,7 @@ def submit_form():
 #############################Email Notifications######################################
 @app.route("/email")
 def sendemail():
+    """sends emails and handles scheduling"""
 
     msg = Message('Your reminder!', sender=config.ADMINS[0], recipients=config.ADMINS)
     msg.body = 'text body'
@@ -268,12 +271,12 @@ def sendemail():
     with app.app_context():
         mail.send(msg)
 
+def send_emails():
+    sendemail()
+    print "I've sent an email!"
 
-
-
-
-
-
+scheduler.add_job(send_emails, 'interval', seconds=60)
+scheduler.start()
 
 ################################################################################
 ################################################################################
