@@ -139,3 +139,11 @@ $(document).on('ready', function(){
 
 });
 
+$("#email").change(function(){alert("i've been clicked!");});
+// $.get("/sendemail", {'ping': 'pong'}, function(results))
+
+
+// $.post("/search", {'keyword': searchTerm}, function(results){
+// console.log(results); //this is the ajxy part- it says how to send info, 
+//where to send it, what to send, then what to do
+//   //with what comes back 

@@ -5,6 +5,7 @@ from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
 from model import connect_to_db, db, User, Response
 from datetime import datetime, date, time
+import time
 import json
 from isoweek import Week
 from helperfunctions import get_monday_sunday
@@ -13,8 +14,11 @@ from flask_mail import Mail
 from flask.ext.mail import Message
 import config
 from apscheduler.schedulers.blocking import BlockingScheduler
+import logging
+logging.basicConfig()
 
 scheduler = BlockingScheduler()
+
 
 app = Flask(__name__)
 
@@ -48,7 +52,6 @@ TIMES = [{"hour": "6am - 8am", "time_interval": 1}, {"hour": "8 am - 9 am", "tim
 
 #################################################################################
 ##################################LOGIN/ LOGOUT############################################
-
 
 @app.route('/', methods=['GET'])
 def login_form():
@@ -131,9 +134,7 @@ def signup_process():
     #commit new user to db
     db.session.commit()
     # print "I've commited your user!"
-
-    #add user to session
-    session["user_id"] = user.user_id
+    session["user_id"] = new_user.user_id
 
     #give user feedback
     flash("You've Signed Up!")
@@ -155,6 +156,7 @@ def show_instructions():
 @app.route("/chart")
 def mainpage():
     """Main page with chart"""
+
 
     return render_template("mainpage.html")
 
@@ -196,7 +198,7 @@ def pickweek():
     print monday, sunday
 
     week_data_query = (db.session.query(Response)
-                       .filter(Response.user_id == session["user_id"], 
+                       .filter(Response.user_id == session["user_id"],
                                Response.date >= monday,
                                Response.date <= sunday).all())
     # print week_data_query
@@ -218,7 +220,9 @@ def pickweek():
 @app.route('/response', methods=['GET', 'POST'])
 def submit_form():
     """Show and Process timetracker form"""
-########################################Show Proper Form########################################################    
+########################################Show Proper Form#######################################
+    
+
     #set date
     old_date = datetime.now()
     stripped_date = datetime.date(old_date)
@@ -241,8 +245,7 @@ def submit_form():
     #only display times that haven't already been filled out
     if request.method == 'GET':
         return render_template("form.html", times=TIMES, used_times=used_times)
-
-#######################################Process form################################################################################ 
+#######################################Process form###############################
     else:
         # get form variables
         hourint = request.form["hourint"]
@@ -259,24 +262,41 @@ def submit_form():
 
         return redirect("/chart?times="+",".join(str(x) for x in TIMES))
 
+
 ################################################################################
 #############################Email Notifications######################################
+def get_signedin_email():
+    user_email = db.session.query(User.email).filter(User.user_id == session["user_id"]).all()
+    return jsonify(user_email=user_email)
+
 @app.route("/email")
 def sendemail():
     """sends emails and handles scheduling"""
 
-    msg = Message('Your reminder!', sender=config.ADMINS[0], recipients=config.ADMINS)
-    msg.body = 'text body'
-    msg.html = '<b>Its time to track your time! Please visit:"http://localhost:5000/response"</b>'
-    with app.app_context():
-        mail.send(msg)
+    print "Hello we pinged here!"
+#     msg = Message('Your reminder!', sender=config.ADMINS[0], recipients=user_email)
+#     msg.body = 'text body'
+#     msg.html = '<b>Its time to track your time! Please visit: http://localhost:5000/response</b>'
+#     with app.app_context():
+#         mail.send(msg)
 
-def send_emails():
-    sendemail()
-    print "I've sent an email!"
+#     scheduler.add_job(send_emails, 'interval', seconds=20)
+#     scheduler.start()
 
-scheduler.add_job(send_emails, 'interval', seconds=60)
-scheduler.start()
+#     return render_template("instructions.html")
+
+# def send_emails():
+
+#     localtime = time.localtime()
+#     current_hour = localtime.tm_hour
+
+#     if (current_hour > 8 and current_hour < 21):
+#         sendemail()
+#         print "I've sent an email!"
+
+
+
+
 
 ################################################################################
 ################################################################################

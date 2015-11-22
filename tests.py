@@ -16,11 +16,11 @@ class WeekDataTest(unittest.TestCase):
         input_date_obj = datetime.strptime(input_date, "%Y-%m-%d")
 
         monday = datetime.strptime("2015, 2, 2", "%Y, %m, %d")
-        monday_obj = datetime.date(monday)
+        # monday_obj = datetime.date(monday)
         sunday = datetime.strptime("2015, 2, 8", "%Y, %m, %d")
-        sunday_obj = datetime.date(sunday)
+        # sunday_obj = datetime.date(sunday)
 
-        self.assertEqual(get_monday_sunday(input_date_obj), (monday_obj, sunday_obj))
+        self.assertEqual(get_monday_sunday(input_date_obj), (monday, sunday))
 
     def test_week_data_given_a_monday(self):
         """does this successfully pull the start and end dates of a
@@ -29,11 +29,11 @@ class WeekDataTest(unittest.TestCase):
         input_date = "2015-02-16"
         input_date_obj = datetime.strptime(input_date, "%Y-%m-%d")
         monday = datetime.strptime("2015, 2, 16", "%Y, %m, %d")
-        monday_obj = datetime.date(monday)
+        # monday_obj = datetime.date(monday)
         sunday = datetime.strptime("2015, 2, 22", "%Y, %m, %d")
-        sunday_obj = datetime.date(sunday)
+        # sunday_obj = datetime.date(sunday)
 
-        self.assertEqual(get_monday_sunday(input_date_obj), (monday_obj, sunday_obj))
+        self.assertEqual(get_monday_sunday(input_date_obj), (monday, sunday))
 
 
     def test_week_data_given_a_sunday(self):
@@ -43,11 +43,11 @@ class WeekDataTest(unittest.TestCase):
             input_date = "2015-02-22"
             input_date_obj = datetime.strptime(input_date, "%Y-%m-%d")
             monday = datetime.strptime("2015, 2, 16", "%Y, %m, %d")
-            monday_obj = datetime.date(monday)
+            # monday_obj = datetime.date(monday)
             sunday = datetime.strptime("2015, 2, 22", "%Y, %m, %d")
-            sunday_obj = datetime.date(sunday)
+            # sunday_obj = datetime.date(sunday)
 
-            self.assertEqual(get_monday_sunday(input_date_obj), (monday_obj, sunday_obj))
+            self.assertEqual(get_monday_sunday(input_date_obj), (monday, sunday))
 
 class ResponseMethodTests(unittest.TestCase):
 
