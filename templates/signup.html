@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <link rel="stylesheet" type="text/css" href="/static/signin.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+   <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
         <title>
             SignUp
         </title>
@@ -13,43 +17,75 @@
     </head>
 
 <body>
-    {% for flash in get_flashed_messages() %}
-        {{ flash }}
-    {% endfor %}
-<h1>Sign Up!</h1>
-    <form action="/signup" method="POST">
-
-        <div>
-            <label>Email:
-                <input type="email" name="email" required>
-            </label>
+    <div class = "container-fluid">
+        
+        {% for flash in get_flashed_messages() %}
+            {{ flash }}
+        {% endfor %}
+        
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-6">
+                <h1>Sign Up!</h1>
+            </div>
         </div>
         <br><br>
-        <div>
-            <label>Password:
-                <input type="password" name="password" required>
-            </label>
-        </div>
-        <br><br>
-        <div>
-            <label>Phone Number:
-                <input type="phone" name="phone" required>
-            </label>
-        </div>
-        <br><br>
-        <div>
-            <label>Name:
-                <input type="text" name="name" required>
-            </label>
-        </div>
-        <br><br>
+        <form action="/signup" method="POST">
 
-        <div>
-            <input type="submit" value="Sign Up!">
+            <div class="row">
+                <div class="col-xs-12 col-xs-offset-5">
+                    <label>Email:
+                        <input type="email" name="email" required>
+                    </label>
+                </div>
+            </div>
+            <br><br>
+            
+            <div class="row">
+                <div class="col-xs-12 col-xs-offset-5">
+                    <label>Password:
+                        <input type="password" name="password" required>
+                    </label>
+                </div>
+            </div>
+            <br><br>
+            
+            <div class="row">
+                <div class="col-xs-12 col-xs-offset-5">
+                    <label>Phone Number:
+                        <input type="phone" name="phone" required>
+                    </label>
+                </div>
+            </div>
+            <br><br>
+            
+            <div class="row">
+                <div class="col-xs-12 col-xs-offset-5">
+                    <label>Name:
+                        <input type="text" name="name" required>
+                    </label>
+                </div>
+            </div>
+            <br><br>
+    
+    <!-- SIGN UP FOR EMAILS BUTTON -->
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-5">
+                <input type="checkbox" name="email" id="email" value="Sign up for reminder emails!"> Sign up for reminder emails!<br>
+                <div id="reminderemails" class="row">
+                    <p> If you sign up to get reminder emails, we'll email you a link to your activty tracker form every hour between 8am and 9pm Monday through Sunday!
+                    </p>
+                </div>
+            </div>
         </div>
 
-    </form>
+            <div class="row">
+                <div class="col-xs-12 col-xs-offset-6">
+                    <input type="submit" value="Sign Up!">
+                </div>
+            </div>
 
+        </form>
 
+    </div>
 </body>
 </html>

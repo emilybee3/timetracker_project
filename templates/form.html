@@ -4,86 +4,83 @@
 <html>
     <head>
         <title>
-            Main Time Tracker Form
+            Time Tracker Form
         </title>
 
-                        <!-- D3 AND JQUERY ADDED -->
-    
-    <script src="http://d3js.org/d3.v3.js"></script>
+                        <!-- BOOTSTRAP, CSS, JQUERY ADDED -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/signin.css">
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
  
     <script src="static/formjs.js"></script>
-    
-    <style>
-      .used_time {
-        color: green;   
-      }
-    </style>
    
     </head>
 
 <body>
- {% for flash in get_flashed_messages() %}
+<!--  {% for flash in get_flashed_messages() %}
         {{ flash }}
- {% endfor %}
+ {% endfor %} -->
+<div class="row">
+    <div class="col-xs-12 col-xs-offset-5">
+        <form action="/response" method="POST"> 
+        <!-- this shows the current date  -->
+            <div id="date">
+                <input id="date" name="date" type = "hidden" id = "date" value="2/2/01">
 
-<form action="/response" method="POST"> 
-<!-- this shows the current date  -->
-    <input id="date" name="date" type = "hidden" id = "date" value="2/2/01">
+                 <script type="text/javascript">
+                    var date = document.getElementById('date').value = Date();
+                    var splitDate = date.split(" ");
+                    document.write(splitDate[0 ]);
+                    document.write(" ") ;
+                    document.write(splitDate[1 ]); 
+                    document.write(" ");
+                    document.write(splitDate[2 ]); 
+                    document.write(" ");
+                    document.write(splitDate[3 ]); 
+                </script> 
+                <br><br>
+            </div>
 
-         <script type="text/javascript">
-            var date = document.getElementById('date').value = Date();
-            var splitDate = date.split(" ");
-            document.write(splitDate[0 ]);
-            document.write(" ") ;
-            document.write(splitDate[1 ]); 
-            document.write(" ");
-            document.write(splitDate[2 ]); 
-            document.write(" ");
-            document.write(splitDate[3 ]); 
-        </script> 
-        <br><br>
+        <!-- this select is a dropdown of daytime hours  -->
+        For the hour of:
 
-<!-- this select is a dropdown of daytime hours  -->
-For the hour of:
+            <select id="hourint" name="hourint">
 
-    <select id="hourint" name="hourint">
+                {% for item in times %}
+                {% if item['time_interval'] not in used_times %}
+                <option class = "used_time" value="{{item['time_interval']}}" id="{{item['hour']}}">{{item['hour']}}</option>
+                {% endif %}
+                {% endfor %}
 
-        {% for item in times %}
-        {% if item['time_interval'] not in used_times %}
-        <option class = "used_time" value="{{item['time_interval']}}" id="{{item['hour']}}">{{item['hour']}}</option>
-        {% endif %}
-        {% endfor %}
+            </select>
+            <br><br>
+            
 
-    </select>
-    <br><br>
-    
+        <!-- this is where the user will input what they were doing -->
+        I was: (you have 100 characters to describe your time)<br>
+            <textarea rows="2" cols="50" name="text" id="text" value="something" maxlength="100"></textarea>
+            <br><br>
 
-<!-- this is where the user will input what they were doing -->
-I was: (you have 100 characters to describe your time)<br>
-    <textarea rows="2" cols="50" name="text" id="text" value="something" maxlength="100"></textarea>
-    <br><br>
+        <!-- this is where the user indicates how they felt -->
+        I felt: 
+            <input type="radio" name="color" value="#ff4d4d">Red (terrible)
+            <input type="radio" name="color" value="#ffff66">Yellow (neutral)
+            <input type="radio" name="color" value="#ccff66">Green (great!)
+            <br><br>
 
-<!-- this is where the user indicates how they felt -->
-I felt: 
-    <input type="radio" name="color" value="#ff4d4d">Red (terrible)
-    <input type="radio" name="color" value="#ffff66">Yellow (neutral)
-    <input type="radio" name="color" value="#ccff66">Green (great!)
-    <br><br>
+        <!-- this is the submit button -->
 
-<!-- this is the submit button -->
+            <input type="submit" value="submit">
+            <br><br>
 
-    <input type="submit" value="submit">
-    <br><br>
-</form>
+        </form>
 
-<a id="skiptochart" class="click-me" href="http://localhost:5000/chart">Skip to your chart!</a>
+        <a id="skiptochart" class="click-me" href="http://localhost:5000/chart">Skip to your chart!</a>
 
-<!-- SIGN UP FOR EMAILS BUTTON -->
-
-    <input type="checkbox" name="email" id="email" value="Sign up for reminder emails!"> Sign up for reminder emails!<br>
-
+        <a id="skiptoinstructions" class="click-me" href="http://localhost:5000/instructions">Return to Instructions</a>
+</div>
+    </div>
 </body>
 </html>

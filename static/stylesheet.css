@@ -1,3 +1,12 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  background-image: url("/static/satinweave/satinweave.png");
+  background-image: url("/static/mountain.jpg");
+}
+
+
+/*THIS STYLES THE CHART*/
 rect.bordered {
         stroke: #666;
         stroke-width:2px;   
@@ -16,3 +25,4 @@ rect.bordered {
       text.axis-worktime {
         fill: #000;
       }
+

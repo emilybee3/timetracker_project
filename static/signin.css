@@ -1,0 +1,34 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 40px;
+  background-image: url("/static/satinweave/satinweave.png");
+  background-image: url("/static/mountain.jpg");
+  background-size:19200px 1080px;
+}
+
+
+#instructions {
+  width: 55%;
+  font-style: "bold";
+  font-weight: 400;
+  text-align: center;
+  font-size: 150%;
+}
+
+#reminderemails
+{
+  width: 25%;
+  font-style: "bold";
+  font-weight: 400;
+}
+
+.row {
+  font-family: lato, sans-serif;
+  font-weight: 400;
+  font-style: "bold";
+  font-size: 20px;
+}
+
+#date {
+  font-size: 150%
+}

@@ -5,8 +5,12 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <link rel="stylesheet" type="text/css" href="/static/signin.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+
         <title>
-            Main Time Tracker Form
+            Instructions
         </title>
     </head>
 
@@ -14,18 +18,30 @@
     {% for flash in get_flashed_messages() %}
         {{ flash }}
     {% endfor %}
-<h1>Thanks for trying TimeTracker!</h1>
+<div class="row">
+    <div class="col-xs-12 col-xs-offset-4">
+        <h1>Thanks for trying Time Minded! </h1>
+</div>
+    </div>
+    <br><br>
 
-    <p> Activity diaries are common components of Cognitive Behavioral Therapy. A crucial information gathering tool, keeping track of your
-    daily activities and moods can give you important insights into your overall wellbeing. 
-    </p>
+    <div id="instructions" class="row">
+        <div class="col-xs-12 col-xs-offset-6">
+        <p> Activity diaries are common components of Cognitive Behavioral Therapy. A crucial information gathering tool, keeping track of your
+        daily activities and moods can give you important insights into your overall wellbeing. 
+        </p>
 
-    <p>Getting started is super easy! Every day, you'll have the opportunity to fill out our simple activity. Based on common Cognitive Behavioral Therapy worksheets, for each hour block from 6am to 
-<form action="/response" method="GET">
-    <input type="submit" value="Go to my form!">
-
-</form>
-
+        <p>Getting started is super easy! Every day, you'll have the opportunity to fill out our simple activity. Based on common Cognitive Behavioral Therapy worksheets, for each hour block from 6am to 9pm write a simple note about what you were doing, and record how you felt during that time: either red (terrible), yellow (neutral), or green (great!). We take the rest from there!</p> 
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-xs-12 col-xs-offset-6">
+            <form action="/response" method="GET">
+                <input type="submit" value="Go to my form!">
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

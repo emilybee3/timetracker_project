@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
     <head>
+    <link rel="stylesheet" type="text/css" href="/static/signin.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+   <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
         <title>
             Login
         </title>
@@ -11,34 +15,55 @@
     </head>
 
 <body>
-    {% for flash in get_flashed_messages() %}
-        {{ flash }}
-    {% endfor %}
-<h1>Login</h1>
-    <form action="/login" method="POST">
+    <div class = "container-fluid">
 
-        <div>
-            <label>Email:
-                <input type="email" name="email" required>
-            </label>
+        {% for flash in get_flashed_messages() %}
+            {{ flash }}
+        {% endfor %}
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-6">
+                <h1>Time Minded</h1> 
+            </div>
         </div>
         <br><br>
-        <div>
-            <label>Password:
-                <input type="password" name="password" required>
-            </label>
-        </div>
-        <br><br>
-
-        <div>
-            <input type="submit" value="Log In">
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-6">
+                <h2>Login</h2> 
+            </div>
         </div>
 
-    </form>
-<h2>Or Sign Up!</h2>
-    <form action="/signup" method="GET">
-        <input type="submit" value="Sign Up">
-    </form>
+        <div class="row">
+            <div class="col-xs-12 col-xs-offset-5">
+                <form action="/login" method="POST">
 
+                    <div>
+                        <label>Email:
+                            <input type="email" name="email" required>
+                        </label>
+                    </div>
+                    <br><br>
+                    <div>
+                        <label>Password:
+                            <input type="password" name="password" required>
+                        </label>
+                        <br><br>
+                    </div>
+            </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-xs-offset-6">
+                            <input type="submit" value="Log In">
+                        </div>
+                     </div>
+                </form>
+    <br><br>
+    
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-6">
+            <h2>Sign Up!</h2> <form action="/signup" method="GET">
+                <input type="submit" value="Sign Up">
+             </form>
+        </div>
+    </div>
 </body>
 </html>

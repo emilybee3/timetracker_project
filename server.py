@@ -191,6 +191,10 @@ def pickweek():
 
     #get date from form on mainpage
     formdate = request.form.get("date")
+
+    if not formdate:
+        return redirect("/sendjson")
+
     #turn date from mainpage into a datetime object
     date = datetime.strptime(formdate, "%Y-%m-%d")
 
@@ -221,7 +225,6 @@ def pickweek():
 def submit_form():
     """Show and Process timetracker form"""
 ########################################Show Proper Form#######################################
-    
 
     #set date
     old_date = datetime.now()
@@ -265,9 +268,9 @@ def submit_form():
 
 ################################################################################
 #############################Email Notifications######################################
-def get_signedin_email():
-    user_email = db.session.query(User.email).filter(User.user_id == session["user_id"]).all()
-    return jsonify(user_email=user_email)
+# def get_signedin_email():
+#     user_email = db.session.query(User.email).filter(User.user_id == session["user_id"]).all()
+
 
 @app.route("/email")
 def sendemail():

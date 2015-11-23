@@ -139,8 +139,6 @@ $(document).on('ready', function(){
 
 });
 
-$("#email").change(function(){alert("i've been clicked!");});
-// $.get("/sendemail", {'ping': 'pong'}, function(results))
 
 
 // $.post("/search", {'keyword': searchTerm}, function(results){
