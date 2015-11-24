@@ -18,25 +18,28 @@
     {% for flash in get_flashed_messages() %}
         {{ flash }}
     {% endfor %}
-<div class="row">
-    <div class="col-xs-12 col-xs-offset-4">
-        <h1>Thanks for trying Time Minded! </h1>
-</div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-lg-12">
+            <h1>Thanks for trying Time Minded! </h1>
     </div>
-    <br><br>
+        </div>
+        <br><br>
 
-    <div id="instructions" class="row">
-        <div class="col-xs-12 col-xs-offset-6">
-        <p> Activity diaries are common components of Cognitive Behavioral Therapy. A crucial information gathering tool, keeping track of your
-        daily activities and moods can give you important insights into your overall wellbeing. 
-        </p>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-lg-12">
+            <div id="instructions">
+            <p> Activity diaries are common components of Cognitive Behavioral Therapy. A crucial information gathering tool, keeping track of your
+            daily activities and moods can give you important insights into your overall wellbeing. 
+            </p>
 
-        <p>Getting started is super easy! Every day, you'll have the opportunity to fill out our simple activity. Based on common Cognitive Behavioral Therapy worksheets, for each hour block from 6am to 9pm write a simple note about what you were doing, and record how you felt during that time: either red (terrible), yellow (neutral), or green (great!). We take the rest from there!</p> 
+            <p>Getting started is super easy! Every day, you'll have the opportunity to fill out our simple activity. Based on common Cognitive Behavioral Therapy worksheets, for each hour block from 6am to 9pm write a simple note about what you were doing, and record how you felt during that time: either red (terrible), yellow (neutral), or green (great!). We take the rest from there!</p> 
+            <div>
         </div>
     </div>
     <br><br>
+    
     <div class="row">
-        <div class="col-xs-12 col-xs-offset-6">
+        <div class="col-xs-12 col-sm-12 col-lg-12">
             <form action="/response" method="GET">
                 <input type="submit" value="Go to my form!">
             </form>

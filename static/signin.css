@@ -4,22 +4,24 @@ body {
   background-image: url("/static/satinweave/satinweave.png");
   background-image: url("/static/mountain.jpg");
   background-size:19200px 1080px;
+
 }
 
 
 #instructions {
   width: 55%;
-  font-style: "bold";
   font-weight: 400;
   text-align: center;
-  font-size: 150%;
+  font-size: 100%;
+  vertical-align: middle;
 }
 
 #reminderemails
 {
-  width: 25%;
+  
   font-style: "bold";
   font-weight: 400;
+  text-align: center;
 }
 
 .row {
@@ -27,8 +29,13 @@ body {
   font-weight: 400;
   font-style: "bold";
   font-size: 20px;
+  text-align: center;
 }
 
 #date {
   font-size: 150%
+}
+
+p {
+  text-align: center;
 }

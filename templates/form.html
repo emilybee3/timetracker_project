@@ -4,7 +4,7 @@
 <html>
     <head>
         <title>
-            Time Tracker Form
+            Time Minder Form
         </title>
 
                         <!-- BOOTSTRAP, CSS, JQUERY ADDED -->
@@ -19,11 +19,36 @@
     </head>
 
 <body>
-<!--  {% for flash in get_flashed_messages() %}
-        {{ flash }}
- {% endfor %} -->
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Brand</a>
+        </div>
+
+
+        <div class="nav navbar-nav" id="skip">
+                <li class="active"><a id="skiptochart" class="click-me" href="http://localhost:5000/chart">Skip to your chart!<span class="sr-only">(current)</span></a></li>
+        </div>
+
+        <div class="nav navbar-nav" id="instruct">
+                <li class="active"><a id="skiptoinstructions" class="click-me" href="http://localhost:5000/instructions">Return to Instructions</span></a></li>
+        </div>
+
+        <div class="nav navbar-nav" id="logout">
+                <li class="active"><a href="http://localhost:5000/logout">Logout<span class="sr-only">(current)</span></a></li>
+        </div>
+    </div>
+</nav>
 <div class="row">
-    <div class="col-xs-12 col-xs-offset-5">
+    <div class="col-xs-12 col-sm-12 col-lg-12">
         <form action="/response" method="POST"> 
         <!-- this shows the current date  -->
             <div id="date">
@@ -77,9 +102,6 @@
 
         </form>
 
-        <a id="skiptochart" class="click-me" href="http://localhost:5000/chart">Skip to your chart!</a>
-
-        <a id="skiptoinstructions" class="click-me" href="http://localhost:5000/instructions">Return to Instructions</a>
 </div>
     </div>
 </body>

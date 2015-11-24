@@ -24,7 +24,7 @@
         {% endfor %}
         
         <div class="row">
-            <div class="col-xs-12 col-xs-offset-6">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
                 <h1>Sign Up!</h1>
             </div>
         </div>
@@ -32,7 +32,7 @@
         <form action="/signup" method="POST">
 
             <div class="row">
-                <div class="col-xs-12 col-xs-offset-5">
+                <div class="col-xs-12 col-sm-12 col-lg-12">
                     <label>Email:
                         <input type="email" name="email" required>
                     </label>
@@ -41,7 +41,7 @@
             <br><br>
             
             <div class="row">
-                <div class="col-xs-12 col-xs-offset-5">
+                <div class="col-xs-12 col-sm-12 col-lg-12">
                     <label>Password:
                         <input type="password" name="password" required>
                     </label>
@@ -50,7 +50,7 @@
             <br><br>
             
             <div class="row">
-                <div class="col-xs-12 col-xs-offset-5">
+                <div class="col-xs-12 col-sm-12 col-lg-12">
                     <label>Phone Number:
                         <input type="phone" name="phone" required>
                     </label>
@@ -59,7 +59,7 @@
             <br><br>
             
             <div class="row">
-                <div class="col-xs-12 col-xs-offset-5">
+                <div class="col-xs-12 col-sm-12 col-lg-12">
                     <label>Name:
                         <input type="text" name="name" required>
                     </label>
@@ -69,17 +69,19 @@
     
     <!-- SIGN UP FOR EMAILS BUTTON -->
         <div class="row">
-            <div class="col-xs-12 col-xs-offset-5">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
                 <input type="checkbox" name="email" id="email" value="Sign up for reminder emails!"> Sign up for reminder emails!<br>
-                <div id="reminderemails" class="row">
-                    <p> If you sign up to get reminder emails, we'll email you a link to your activty tracker form every hour between 8am and 9pm Monday through Sunday!
-                    </p>
-                </div>
             </div>
+        </div>
+        
+        <div class="row" id="reminderemails">
+            <div class="col-xs-12 col-sm-12 col-lg-12">
+                <p> If you sign up to get reminder emails, we'll email you a link to your activty tracker form every hour between 8am and 9pm Monday through Sunday!</p>
+             </div>
         </div>
 
             <div class="row">
-                <div class="col-xs-12 col-xs-offset-6">
+               <div class="col-xs-12 col-sm-12 col-lg-12">
                     <input type="submit" value="Sign Up!">
                 </div>
             </div>

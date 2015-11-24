@@ -31,28 +31,53 @@
       </button>
       <a class="navbar-brand" href="#">Brand</a>
     </div>
-  
-  <!-- DATE INPUT FORM -->
-    <br>
-    <input type="date" name="date" id="date">
-    <button id="triggersubmit">See a different week</button>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
 
     <!-- GO TO TIME TRACKER FORM -->
-  
-  <a id="timetrack" class="click-me" href="http://localhost:5000/response">Track My Time!</a>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href='http://localhost:5000/response'>Track My Time!<span class="sr-only">(current)</span></a></li>
 
-  <!-- LOG OUT LINK -->
-    
-    <a id="logout" class="click-me" href="http://localhost:5000/logout">Logout</a>
+    <!-- LOG OUT LINK -->
+    <ul class="nav navbar-nav" id="logout">
+        <li class="active"><a href="http://localhost:5000/logout">Logout<span class="sr-only">(current)</span></a></li>
+  
+ <!--  <a id="timetrack" class="click-me" href="http://localhost:5000/response">Track My Time!</a> --
+    <!-- <a id="logout" class="click-me" href="http://localhost:5000/logout">Logout</a> -->
   
   <!-- THIS IS THE SEARCH BOX -->
+   <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" name="search" id="search" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default" id="search-btn">Search!</button>
+      </form>
   
-    <input type="text" name="search" id="search">
-    <button id="search-btn">Search!</button>
+    <!-- <input type="text" name="search" id="search"> -->
+    <!-- <button id="search-btn">Search!</button> -->
 
     <!-- CLEAR SEARCH BUTTON -->
 
-    <button id="clear-search">Clear Previous Search</button>
+      <form class="navbar-form navbar-left" role="search">
+        <button type="submit" class="btn btn-default" id="clear-search">Clear Previous Search</button>
+      </form>
+  <!--   <button id="clear-search">Clear Previous Search</button> -->
+
+
+      <!-- DATE INPUT FORM -->
+    <!-- <form class="navbar-form navbar-left" role="date"> -->
+        <div class="navbar-form navbar-right">
+          <input type="date" class="form-control" name="date" id="date">
+    <!--     </div>
+        <div class="navbar-form navbar-left"> -->
+          <button type="submit" class="btn btn-default" id="triggersubmit">See a Different Week</button>
+        </div>
+
+
+   <!--  <input type="date" name="date" id="date">
+    <button id="triggersubmit">See a different week</button>
+ -->
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

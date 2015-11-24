@@ -5,6 +5,10 @@ body {
   background-image: url("/static/mountain.jpg");
 }
 
+#logout {
+  
+
+}
 
 /*THIS STYLES THE CHART*/
 rect.bordered {
