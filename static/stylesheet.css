@@ -2,13 +2,10 @@ body {
   padding-top: 20px;
   padding-bottom: 40px;
   background-image: url("/static/satinweave/satinweave.png");
-  background-image: url("/static/mountain.jpg");
+  background-image: url("/static/clouds_2.jpe");
+  background-size:2920px 2080px;
 }
 
-#logout {
-  
-
-}
 
 /*THIS STYLES THE CHART*/
 rect.bordered {
@@ -30,3 +27,7 @@ rect.bordered {
         fill: #000;
       }
 
+.navbar-default {
+    background-color: #D5D5D5;
+    border-color: #D5D5D5;
+}

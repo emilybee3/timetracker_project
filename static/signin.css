@@ -2,14 +2,14 @@ body {
   padding-top: 20px;
   padding-bottom: 40px;
   background-image: url("/static/satinweave/satinweave.png");
-  background-image: url("/static/mountain.jpg");
-  background-size:19200px 1080px;
+  background-image: url("/static/clouds_2.jpe");
+  background-size:2920px 2090px;
 
 }
 
 
 #instructions {
-  width: 55%;
+  width: 70%;
   font-weight: 400;
   text-align: center;
   font-size: 100%;
@@ -36,6 +36,32 @@ body {
   font-size: 150%
 }
 
-p {
-  text-align: center;
+.panel-body {
+  background-color: #ffc299;
+  border-color: #ffc299;
+}
+
+#email {
+  font-style: "bold";
+  font-weight: 400;
+}
+
+.navbar-default {
+    background-color: #D5D5D5;
+    border-color: #D5D5D5;
+}
+
+.radio3 {
+    width: 1em;
+    height: 1em;
+}
+
+.radio1 {
+    width: 1em;
+    height: 1em;
+}
+
+.radio2 {
+    width: 1em;
+    height: 1em;
 }

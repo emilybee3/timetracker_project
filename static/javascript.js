@@ -1,8 +1,8 @@
       //SETS UP GRID SIZE 
       var margin = { top: 50, right: 100, bottom: 100, left: 70},
-          width = 2000 - margin.left - margin.right,
+          width =  1200  - margin.left - margin.right,
           height = 1450 - margin.top - margin.bottom,
-          gridSize = Math.floor(width / 20), //how big the grid appears in the window
+          gridSize = Math.floor(width / 12), //how big the grid appears in the window
           legendElementWidth = gridSize + 10,
           buckets = 9, //catagories to split data into
           
@@ -138,10 +138,3 @@ $(document).on('ready', function(){
   $("rect").attr("style", "stroke-width: 2px").css("stroke", "grey");
 
 });
-
-
-
-// $.post("/search", {'keyword': searchTerm}, function(results){
-// console.log(results); //this is the ajxy part- it says how to send info, 
-//where to send it, what to send, then what to do
-//   //with what comes back 

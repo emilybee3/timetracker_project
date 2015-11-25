@@ -30,7 +30,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Brand</a>
+          <a class="navbar-brand" href="#"><img src="/static/clock-32.png"></a>
         </div>
 
 
@@ -42,67 +42,71 @@
                 <li class="active"><a id="skiptoinstructions" class="click-me" href="http://localhost:5000/instructions">Return to Instructions</span></a></li>
         </div>
 
-        <div class="nav navbar-nav" id="logout">
+        <div class="nav navbar-nav navbar-right" id="logout">
                 <li class="active"><a href="http://localhost:5000/logout">Logout<span class="sr-only">(current)</span></a></li>
         </div>
     </div>
 </nav>
+
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-lg-12">
-        <form action="/response" method="POST"> 
-        <!-- this shows the current date  -->
-            <div id="date">
-                <input id="date" name="date" type = "hidden" id = "date" value="2/2/01">
+    <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class= "panel-body">
+                <form action="/response" method="POST"> 
+                <!-- this shows the current date  -->
+                    <div id="date">
+                        <input id="date" name="date" type = "hidden" id = "date" value="2/2/01">
 
-                 <script type="text/javascript">
-                    var date = document.getElementById('date').value = Date();
-                    var splitDate = date.split(" ");
-                    document.write(splitDate[0 ]);
-                    document.write(" ") ;
-                    document.write(splitDate[1 ]); 
-                    document.write(" ");
-                    document.write(splitDate[2 ]); 
-                    document.write(" ");
-                    document.write(splitDate[3 ]); 
-                </script> 
-                <br><br>
+                         <script type="text/javascript">
+                            var date = document.getElementById('date').value = Date();
+                            var splitDate = date.split(" ");
+                            document.write(splitDate[0 ]);
+                            document.write(" ") ;
+                            document.write(splitDate[1 ]); 
+                            document.write(" ");
+                            document.write(splitDate[2 ]); 
+                            document.write(" ");
+                            document.write(splitDate[3 ]); 
+                        </script> 
+                        <br><br>
+                    </div>
+
+                <!-- this select is a dropdown of daytime hours  -->
+                For the hour of:
+
+                    <select id="hourint" name="hourint">
+
+                        {% for item in times %}
+                        {% if item['time_interval'] not in used_times %}
+                        <option class = "used_time" value="{{item['time_interval']}}" id="{{item['hour']}}">{{item['hour']}}</option>
+                        {% endif %}
+                        {% endfor %}
+
+                    </select>
+                    <br><br>
+                    
+
+                <!-- this is where the user will input what they were doing -->
+                I was: (you have 100 characters to describe your time)<br>
+                    <textarea rows="2" cols="50" name="text" id="text" value="something" maxlength="100"></textarea>
+                    <br><br>
+
+                <!-- this is where the user indicates how they felt -->
+                I felt: 
+                    <input type="radio" name="color" class="radio1" value="#ff4d4d">Red (terrible)
+                    <input type="radio" name="color" class="radio2" value="#ffff66">Yellow (neutral)
+                    <input type="radio" name="color" class="radio3" value="#ccff66">Green (great!)
+                    <br><br>
+
+                <!-- this is the submit button -->
+
+                    <input type="submit" value="Submit">
+                    <br><br>
+
+                </form>
             </div>
-
-        <!-- this select is a dropdown of daytime hours  -->
-        For the hour of:
-
-            <select id="hourint" name="hourint">
-
-                {% for item in times %}
-                {% if item['time_interval'] not in used_times %}
-                <option class = "used_time" value="{{item['time_interval']}}" id="{{item['hour']}}">{{item['hour']}}</option>
-                {% endif %}
-                {% endfor %}
-
-            </select>
-            <br><br>
-            
-
-        <!-- this is where the user will input what they were doing -->
-        I was: (you have 100 characters to describe your time)<br>
-            <textarea rows="2" cols="50" name="text" id="text" value="something" maxlength="100"></textarea>
-            <br><br>
-
-        <!-- this is where the user indicates how they felt -->
-        I felt: 
-            <input type="radio" name="color" value="#ff4d4d">Red (terrible)
-            <input type="radio" name="color" value="#ffff66">Yellow (neutral)
-            <input type="radio" name="color" value="#ccff66">Green (great!)
-            <br><br>
-
-        <!-- this is the submit button -->
-
-            <input type="submit" value="submit">
-            <br><br>
-
-        </form>
-
-</div>
+        </div>
     </div>
+</div>
 </body>
 </html>
