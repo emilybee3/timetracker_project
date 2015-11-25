@@ -1,14 +1,12 @@
 <!-- this is the sign up page -->
 
-<!-- this page is the main login/ splash page -->
-
-
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="/static/signin.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-   <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+                            <!-- BOOTSTRAP, CSS, FONT -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/static/signin.css">
+        <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
         <title>
             SignUp
@@ -17,12 +15,13 @@
     </head>
 
 <body>
+    
     <div class = "container-fluid">
-        
+            <!-- displays error messages -->
         {% for flash in get_flashed_messages() %}
             {{ flash }}
         {% endfor %}
-    
+                        <!-- TITLE -->
         <div class="row">
             <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
                 <h1>Sign Up!</h1>
@@ -30,56 +29,60 @@
         </div>
         
         <br>
-        
+                        <!-- Sign Up Form -->
         <div class="row">
             <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
                 <div class="panel panel-default">
                     <div class= "panel-body">
                         <form action="/signup" method="POST">
-                        <div class="form-group">
-                            <label>Email:
-                                <input class="form-control" type="email" name="email" required>
-                            </label>
-                          </div>
-                        <div class="form-group">
-                            <label>Password:
-                                <input class="form-control" type="password" name="password" required>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label>Phone Number:
-                                <input class="form-control" type="phone" name="phone" required>
-                            </label>
-                        </div>
-                        <div class="form-group">
-                            <label>Name:
-                                <input class="form-control" type="text" name="name" required>
-                            </label>
-                        </div>
+                                <!-- email input -->
+                            <div class="form-group">
+                                <label>Email:
+                                    <input class="form-control" type="email" name="email" required>
+                                </label>
+                            </div>
+                                <!-- password input -->
+                            <div class="form-group">
+                                <label>Password:
+                                    <input class="form-control" type="password" name="password" required>
+                                </label>
+                            </div>
+                                <!-- phone number input -->
+                            <div class="form-group">
+                                <label>Phone Number:
+                                    <input class="form-control" type="phone" name="phone" required>
+                                </label>
+                            </div>
+                                <!-- name input -->
+                            <div class="form-group">
+                                <label>Name:
+                                    <input class="form-control" type="text" name="name" required>
+                                </label>
+                            </div>
             
-            <!-- SIGN UP FOR EMAILS BUTTON -->
-
-                    <input type="checkbox" name="email" id="email" value="Sign up for reminder emails!"> Sign up for reminder emails!<br><br>
-          
-                
-                <div class="row" id="reminderemails">
-                    <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
-                        <p> By signing up for reminder emails, you'll be sent a link to your activity 
-                            tracker every hour between 8am and 9pm Monday through Sunday</p>
-                     </div>
-                </div>
-                <br>
-                    <div class="row">
-                       <div class="btn-md">
-                            <input type="submit" value="Sign Up!">
-                        </div>
-                    </div>
-
+                            <!-- SIGN UP FOR EMAILS BUTTON -->
+                            <input type="checkbox" name="email" id="email" value="Sign up for reminder emails!"> Sign up for reminder emails!<br><br>
+                            
+                            <!-- Reminder email explanation  -->
+                            <div class="row" id="reminderemails">
+                                <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                                    <p> By signing up for reminder emails, you'll be sent a link to your activity tracker every hour between 8am and 9pm Monday through Sunday</p>
+                                 </div>
+                            </div>
+                            <br>
+                            <!-- Submit button -->
+                            <div class="row">
+                                <div class="btn-md">
+                                    <input type="submit" value="Sign Up!">
+                                </div>
+                            </div>
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </div> <!-- ends panel body -->
+                </div> <!-- ends panel -->
+            </div> <!-- ends column with sign up form -->
+        </div> <!-- ends row with sign up form -->
+    </div> <!-- ends main container -->
+
 </body>
+
 </html>

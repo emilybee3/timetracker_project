@@ -4,50 +4,46 @@
 <html>
     <head>
         <title>
-            Time Minder Form
+            Activity Tracker
         </title>
 
-                        <!-- BOOTSTRAP, CSS, JQUERY ADDED -->
+                <!-- BOOTSTRAP, CSS, JQUERY ADDED -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/signin.css">
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
- 
     <script src="static/formjs.js"></script>
    
     </head>
 
 <body>
 
+        <!-- NAVBAR -->
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
+                <!-- Brand  -->
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="#"><img src="/static/clock-32.png"></a>
         </div>
 
-
+            <!-- SKIP TO CHART BUTTON -->
         <div class="nav navbar-nav" id="skip">
                 <li class="active"><a id="skiptochart" class="click-me" href="http://localhost:5000/chart">Skip to your chart!<span class="sr-only">(current)</span></a></li>
         </div>
-
+                <!-- SKIP TO INSTRUCTIONS BUTTON -->
         <div class="nav navbar-nav" id="instruct">
                 <li class="active"><a id="skiptoinstructions" class="click-me" href="http://localhost:5000/instructions">Return to Instructions</span></a></li>
         </div>
-
+                    <!-- LOGOUT BUTTON -->
         <div class="nav navbar-nav navbar-right" id="logout">
                 <li class="active"><a href="http://localhost:5000/logout">Logout<span class="sr-only">(current)</span></a></li>
         </div>
     </div>
 </nav>
+        <!-- END OF NAVBAR -->
 
+        <!-- FORM AND PANEL -->
 <div class="row">
     <div class="col-xs-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
         <div class="panel panel-default">
@@ -84,7 +80,6 @@
 
                     </select>
                     <br><br>
-                    
 
                 <!-- this is where the user will input what they were doing -->
                 I was: (you have 100 characters to describe your time)<br>
@@ -102,11 +97,12 @@
 
                     <input type="submit" value="Submit">
                     <br><br>
-
                 </form>
-            </div>
-        </div>
-    </div>
-</div>
+            </div> <!-- ends panel body -->
+        </div> <!-- ends default panel -->
+    </div> <!-- ends column containing form -->
+</div> <!-- ends row containing form -->
+
 </body>
+
 </html>

@@ -1,30 +1,34 @@
 <!-- this page has instructions on how to use the app -->
 
-<!-- this is the form to submit time spent information  -->
-
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="/static/signin.css">
-    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
-
+    
         <title>
             Instructions
         </title>
+                        <!-- BOOTSTRAP, CSS, FONTS ADDED -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/static/signin.css">
+        <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
     </head>
 
 <body>
+        <!-- displays logged in message -->
     {% for flash in get_flashed_messages() %}
         {{ flash }}
     {% endfor %}
+           
+            <!-- Title -->
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-lg-12">
-            <h1>Thanks for trying Time Mind! </h1>
-    </div>
+            <h1>Thanks for trying Me Time! </h1>
         </div>
+    </div>
         <br><br>
 
+             <!-- Instructions text -->
     <div class="row">
         <div class="col-xs-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
             <div class="panel panel-default">
@@ -35,19 +39,18 @@
 
                     <p>Getting started is super easy! Every day, you'll have the opportunity to fill out our simple activity tracker form. For each hour from 6am to 9pm you can write a simple note about what you were doing and record how you felt during that time: either red (terrible), yellow (neutral), or green (great). We take the rest from there, generating a color coded fully searchable spreadsheet representing your week!</p>
 
-                    <p>Each day's forms are only available for that day- you can't retroactivly fill out your spreadsheet. This is for a subtle reason backed by research: the longer you wait to fill out your form, the less accurate your report of both your time spent and mood will be. 
-
-                    </p> 
-                </div>
-            </div>
-        </div>
-    </div>
+                    <p>Each day's forms are only available for that day- you can't retroactivly fill out your spreadsheet. This is for a subtle reason backed by research: the longer you wait to fill out your form, the less accurate your report of both your time spent and mood will be. </p> 
+                </div> <!-- closes panel body -->
+            </div> <!-- closes panel -->
+        </div> <!-- closes column of instructions -->
+    </div> <!-- closes row of instructions -->
     <br><br>
     
+                <!-- Go to activity tracker button -->
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-lg-12">
             <form action="/response" method="GET">
-                <input type="submit" value="Go to my form!">
+                <input type="submit" value="Go to my Activity Tracker!">
             </form>
         </div>
     </div>

@@ -4,9 +4,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <link rel="stylesheet" type="text/css" href="/static/signin.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-   <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+                            <!-- BOOTSTRAP, CSS, FONT ADDED -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="/static/signin.css">
+        <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
         <title>
             Login
@@ -16,46 +17,50 @@
 
 <body>
     <div class = "container-fluid">
-
+            <!-- displays logged in/out/ error messages -->
         {% for flash in get_flashed_messages() %}
             {{ flash }}
         {% endfor %}
         <br><br>
-        
+                        <!-- title header -->
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
-                <h1>Time Mind</h1>
+                <h1>Me Time</h1>
             </div>
         </div>
         
         <br><br>
-
+                        <!-- Login Form -->
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
                 <div class="panel panel-default">
                     <div class= "panel-body">
                         <h2>Login</h2> 
+                                <!-- Login form -->
                         <form action="/login" method="POST">
-                                <div class="form-group">
-                                    </a><label>Email:
-                                        <input class="form-control" type="email" name="email" required>
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <label>Password:
-                                        <input type="password" class="form-control" name="password" required>
-                                    </label>
-                                </div>
-                                     <input class="btn-md" type="submit" value="Log In">
+                                    <!-- email input -->
+                            <div class="form-group">
+                                <label>Email:
+                                    <input class="form-control" type="email" name="email" required>
+                                </label>
+                            </div>
+                                        <!-- password input -->
+                            <div class="form-group">
+                                <label>Password:
+                                    <input type="password" class="form-control" name="password" required>
+                                </label>
+                            </div>
+                                        <!-- submit button -->
+                            <input class="btn-md" type="submit" value="Log In">
                         </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </div> <!-- closes panel body -->
+                </div> <!-- closes panel -->
+            </div> <!-- closes column containing login form -->
+        </div> <!-- closes row containing login form -->
 
-                    <br><br>
         <br><br>
-    
+        <br><br>
+                        <!-- Sign Up -->
         <div class="row">
              <div class="col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4">
                 <div class="panel panel-default">
@@ -65,10 +70,13 @@
                          <form action="/signup" method="GET">
                             <input class="btn-md" type="submit" value="Sign Up">
                          </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                    </div> <!-- closes panel body -->
+                </div>  <!-- closes panel -->
+            </div> <!-- closes column containing signup option -->
+        </div> <!-- closes row containing login form -->
+    
+    </div> <!-- closes main div containing both forms -->
+
 </body>
+
 </html>

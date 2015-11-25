@@ -55,6 +55,6 @@ if __name__ == "__main__":
 
     get_signedin_email()
     scheduler = BlockingScheduler()
-    scheduler.add_job(send_emails, 'interval', seconds=10)
+    scheduler.add_job(send_emails, 'interval', seconds=20)
     scheduler.start()
     mail = Mail(app)

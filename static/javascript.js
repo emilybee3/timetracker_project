@@ -2,12 +2,12 @@
       var margin = { top: 50, right: 100, bottom: 100, left: 70},
           width =  1200  - margin.left - margin.right,
           height = 1450 - margin.top - margin.bottom,
-          gridSize = Math.floor(width / 12), //how big the grid appears in the window
+          gridSize = Math.floor(width / 13), //how big the grid appears in the window
           legendElementWidth = gridSize + 10,
           buckets = 9, //catagories to split data into
           
       //DATA FOR AXIS
-          colors = ["red","yellow","green"], 
+          colors = ["red","yellow","green"],
           days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
           times = ["6a - 8a", "8a - 9a", "9a - 10a", "10a - 11a", "11a - 12p", "12p - 1p", "1p - 2p", "2p - 3p", "3p - 4p", "4p - 5p", "5p - 6p", "6p - 7p", "7p - 8p", "8p - 9p", "9p - 12p"];
 

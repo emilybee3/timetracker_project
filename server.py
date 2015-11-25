@@ -1,5 +1,5 @@
 # this page has Flask routes
-"""Time Tracker"""
+"""Me Time"""
 import os
 from jinja2 import StrictUndefined
 from flask import Flask, render_template, request, flash, redirect, session, jsonify
@@ -17,7 +17,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 import logging
 logging.basicConfig()
 
-scheduler = BlockingScheduler()
+scheduler = BlockingScheduler() #sets instance of sc
 
 
 app = Flask(__name__)
@@ -40,6 +40,7 @@ app.secret_key = "ABC"
 # This is horrible. Fix this so that, instead, it raises an error.
 app.jinja_env.undefined = StrictUndefined
 
+#times for dynamic creation of available time dropdown
 TIMES = [{"hour": "6am - 8am", "time_interval": 1}, {"hour": "8 am - 9 am", "time_interval": 2},
          {"hour": "9 am - 10 am", "time_interval": 3}, {"hour": "10 am - 11 am", "time_interval": 4},
          {"hour": "11 am - 12 pm", "time_interval": 5}, {"hour": "12 pm - 1 pm", "time_interval": 6},
@@ -172,7 +173,7 @@ def send_json():
                        .filter(Response.user_id == session["user_id"],
                                Response.date >= monday,
                                Response.date <= sunday).all())
-    # print week_data_query
+
     #create json dictionary from query responses, append to list
     to_json = []
 
@@ -182,7 +183,6 @@ def send_json():
 
     #return json data object of list containing json dictionary
     return jsonify(data=to_json)
-
 
 
 @app.route("/pickweek", methods=['POST'])
@@ -219,7 +219,6 @@ def pickweek():
 
 ################################################################################
 #############################RESPONSE FORM######################################
-
 
 @app.route('/response', methods=['GET', 'POST'])
 def submit_form():
@@ -268,34 +267,11 @@ def submit_form():
 
 ################################################################################
 #############################Email Notifications######################################
-# def get_signedin_email():
-#     user_email = db.session.query(User.email).filter(User.user_id == session["user_id"]).all()
-
 
 @app.route("/email")
 def sendemail():
     """sends emails and handles scheduling"""
 
-    print "Hello we pinged here!"
-#     msg = Message('Your reminder!', sender=config.ADMINS[0], recipients=user_email)
-#     msg.body = 'text body'
-#     msg.html = '<b>Its time to track your time! Please visit: http://localhost:5000/response</b>'
-#     with app.app_context():
-#         mail.send(msg)
-
-#     scheduler.add_job(send_emails, 'interval', seconds=20)
-#     scheduler.start()
-
-#     return render_template("instructions.html")
-
-# def send_emails():
-
-#     localtime = time.localtime()
-#     current_hour = localtime.tm_hour
-
-#     if (current_hour > 8 and current_hour < 21):
-#         sendemail()
-#         print "I've sent an email!"
 
 
 
