@@ -37,7 +37,7 @@ def load_responses():
 
     print "Responses"
 
-    for i, row in enumerate(open("seed_data/u.responses")):
+    for i, row in enumerate(open("seed_data/u.presentation")):
         row = row.rstrip()
         # print row
 
@@ -75,5 +75,5 @@ if __name__ == "__main__":
     connect_to_db(app)
     db.create_all()
 
-    load_users()
+    # load_users()
     load_responses()
