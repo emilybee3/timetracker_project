@@ -1,6 +1,6 @@
 # Me Time
 
-Me Time is a fullstack web application designed to optimize Activity Diaries, a common tool used in Cognitive Behavioral Therapy. In traditional Activity Diaries, patients are encouraged to record their daily activities and associated moods on an hour by hour basis on a paper spreadsheet they can then share with their therapists. Time Mind aims to make this process more dynamic by converting daily activity records into a web based, fully searchable and color coded spreadsheet.
+Me Time is a fullstack web application designed to optimize Activity Diaries, a common tool used in Cognitive Behavioral Therapy. In traditional Activity Diaries, patients are encouraged to record their daily activities and associated moods on an hour by hour basis on a paper spreadsheet they can then share with their therapists. Me Time aims to make this process more dynamic by converting daily activity records into a web based, fully searchable and color coded spreadsheet.
 
 Color Coded Spreadsheet:
 ![alt text](https://github.com/emilybee3/timetracker_project/blob/master/main_chart_screenshot.PNG)
